@@ -452,111 +452,94 @@ pipeline {
 [1;37r[34;5H}[?12l[?25h[?25l7[2;35r8[35d
 [1;37r[34;1H}[?12l[?25h[?25l7[2;35r8[35d
 [1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1push ${DOCKER_ID}/${DOCK(B[0;7m>[2;17H(B[m[?12l[?25h[?25l7[2;34r8M[1;37r[2;25H// Push Docker images to Docker Hub[2;17H[?12l[?25h[?25l7[2;34r8[2T[1;37r[2;25Hsh "docker login -u ${DOCKER_ID} -p(B[0;7m>[2;17H(B[m[?12l[?25h[?25l7[2;34r8[9T[1;37r[3;9Hstage('Docker Push') {[4;13Henvironment {[5;17HDOCKER_PASS = credentials('DOCKER_HUB_PASS')[6;13H}[7dsteps {[8;17Hscript {[9;21H// Login to Docker Hub[10;21HwithCredentials([usernamePassword(crede(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;13Hsteps {[3;17Hscript {[4;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[5;17H(B[m}[6;13H}[7;9H}[2;17H[?12l[?25h[?25l7[2;34r8[3T[1;37r[3;5Hstages {[4;9Hstage('Build Docker Images') {[2d[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;9HKUBE_NAMESPACE_DEV = "dev"[3;9HKUBE_NAMESPACE_QA = "qa"[4;9HKUBE_NAMESPACE_STAGING = "staging"[5;9HKUBE_NAMESPACE_PROD = "prod"[6;9HKUBECONFIG = credentials("kubeconfig")[7;5H}[2;17H[?12l[?25h[?25l7[2;34r8[6T[1;37r[3;5Henvironment {[4;9HDOCKER_ID = "ameliendevops"[5;9HDOCKER_IMAGE_CAST = "cast-service"[6;9HDOCKER_IMAGE_MOVIE = "movie-service"[7;9HDOCKER_TAG = "v.${BUILD_ID}.0"[2d[?12l[?25h[?25l7[2;35r8[2T[1;37r[2;1Hpipeline {[3;5Hagent any[A[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;25H// Push Docker images to Docker Hub[2d[?12l[?25h[?25l[2;35r[35;1H[2S[1;37r[33;25Hsh "docker push ${DOCKER_ID}/${DOCK(B[0;7m>[34;25H(B[msh "docker push ${DOCKER_ID}/${DOCK(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;25H// Logout from Docker Hub[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;25Hsh "docker logout"[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Docker run') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsleep 10[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Test Acceptance') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh 'curl localhost'[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Deploy Dev') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh '''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H'''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Deploy QA') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh '''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H'''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Deploy Staging') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh '''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H'''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9Hstage('Deploy Prod') {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13Hsteps {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17Hscript {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Htimeout(time: 15, unit: "MINUTES") {[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;25Hinput message: 'Do you want to depl(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh '''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21H'''[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;17H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;13H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;9H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;5H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;1H}[2d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
+[1;37r[34;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d(B[0;7mSave modified buffer?                                       [36;1H Y(B[m Yes[K[37d(B[0;7m N(B[m No           (B[0;7m^C(B[m Cancel[K[35;23H[?12l[?25h[?25l[36d(B[0;7m^G(B[m Get Help    (B[0;7mM-D(B[m DOS Format (B[0;7mM-A(B[m Append     (B[0;7mM-B(B[m Backup File[37;1H(B[0;7m^C(B[m Cancel[16G(B[0;7mM-M(B[m Mac Format (B[0;7mM-P(B[m Prepend    (B[0;7m^T(B[m To Files[35d(B[0;7mFile Name to Write: Jenkinsfile(B[m[35;32H[?12l[?25h[?25l[35;23H[1K (B[0;7m[ Writing... ](B[m[K[1;51H(B[0;7m        (B[m[35;21H(B[0;7m[ Wrote 107 lines ](B[m[J[37d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[A]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[K[K[K[Kadd.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+	add
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git add. .
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git commit -m "3ème push correction jenkinsfile"
+[main cc2e15a] 3ème push correction jenkinsfile
+ 3 files changed, 753 insertions(+), 21 deletions(-)
+ create mode 100644 Jenkinsfile.save.1
+ create mode 100644 {
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git push -u j[K[K]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ g
+it push -u [K[K[K[K
+Enumerating objects: 7, done.
+Counting objects:  14% (1/7)Counting objects:  28% (2/7)Counting objects:  42% (3/7)Counting objects:  57% (4/7)Counting objects:  71% (5/7)Counting objects:  85% (6/7)Counting objects: 100% (7/7)Counting objects: 100% (7/7), done.
+Delta compression using up to 2 threads
+Compressing objects:  20% (1/5)Compressing objects:  40% (2/5)Compressing objects:  60% (3/5)Compressing objects:  80% (4/5)Compressing objects: 100% (5/5)Compressing objects: 100% (5/5), done.
+Writing objects:  20% (1/5)Writing objects:  40% (2/5)Writing objects:  60% (3/5)Writing objects:  80% (4/5)Writing objects: 100% (5/5)Writing objects: 100% (5/5), 7.66 KiB | 2.55 MiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
+To github.com:Amelien77/Jenkins_devops_exam.git
+   e81baf0..cc2e15a  main -> main
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
+ Jenkinsfile          docker-compose.yml
+ Jenkinsfile.save     [0m[01;34mhelm[0m
+ Jenkinsfile.save.1   [01;34mmovie-service[0m
+ README.md            nginx_config.conf
+ [01;34mcast-service[0m        '{'
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo rm Jenkinsfile.save K[KJenkinsfilen[K.save.1
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
+ Jenkinsfile    docker-compose.yml   nginx_config.conf
+ README.md      [0m[01;34mhelm[0m                '{'
+ [01;34mcast-service[0m   [01;34mmovie-service[0m
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ tree
+[01;34m.[00m
+├── Jenkinsfile
+├── README.md
+├── [01;34mcast-service[00m
+│   ├── Dockerfile
+│   ├── [01;34mapp[00m
+│   │   ├── [01;34mapi[00m
+│   │   │   ├── casts.py
+│   │   │   ├── db.py
+│   │   │   ├── db_manager.py
+│   │   │   └── models.py
+│   │   └── main.py
+│   └── requirements.txt
+├── docker-compose.yml
+├── [01;34mhelm[00m
+│   ├── Chart.yaml
+│   ├── [01;34mcharts[00m
+│   ├── [01;34mtemplates[00m
+│   │   ├── NOTES.txt
+│   │   ├── _helpers.tpl
+│   │   ├── cast-service-claim0-persistentvolumeclaim.yaml
+│   │   ├── cast-service-deployment.yaml
+│   │   ├── deployment.yaml
+│   │   ├── hpa.yaml
+│   │   ├── ingress.yaml
+│   │   ├── movie-service-claim0-persistentvolumeclaim.yaml
+│   │   ├── movie-service-deployment.yaml
+│   │   ├── nginx-claim0-persistentvolumeclaim.yaml
+│   │   ├── nginx-deployment.yaml
+│   │   ├── nginx-service.yaml
+│   │   ├── postgres-data-cast-persistentvolumeclaim.yaml
+│   │   ├── postgres-data-movie-persistentvolumeclaim.yaml
+│   │   ├── service.yaml
+│   │   ├── serviceaccount.yaml
+│   │   └── [01;34mtests[00m
+│   │       └── test-connection.yaml
+│   └── values.yaml
+├── [01;34mmovie-service[00m
+│   ├── Dockerfile
+│   ├── [01;34mapp[00m
+│   │   ├── [01;34mapi[00m
+│   │   │   ├── db.py
+│   │   │   ├── db_manager.py
+│   │   │   ├── models.py
+│   │   │   ├── movies.py
+│   │   │   └── service.py
+│   │   └── main.py
+│   └── requirements.txt
+├── nginx_config.conf
+└── {
+
+10 directories, 39 files
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano j[KJenkinsfile 
+[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[5d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[35d[K[14d[?12l[?25h[?25l[8d[?12l[?25h[?25l[2d[?12l[?25h5;1H
 [1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
 [1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
 [1;37r[2;1H[?12l[?25h[?25l[K[?12l[?25h[?25l[35;21H(B[0;7m[ Nothing was cut ](B[m[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35d[K[2d  [?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d[3;9Hstage('Deploy Prod') {[4;13Hsteps {[5;17Hscript {[6;21Htimeout(time: 15, unit: "MINUTES") {[7;25Hinput message: 'Do you want to depl(B[0;7m>[8;21H(B[m}[9dsh '''[10;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[11;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[12;21H(B[m'''[13;17H}[14;13H}[15;9H}[16;5H}[17d}[18d[?12l[?25h[?25l[15d[?12l[?25h[?25l[3d[?12l[?25h[?25l[2;35r[2;1H[2T[1;37r[2;13H}[3;9H}[A[?12l[?25h[?25l7[2;35r8[3T[1;37r[2;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[3;21H(B[m'''[4;17H}[2d[?12l[?25h[?25l7[2;35r8[6T[1;37r[3;9Hstage('Deploy Staging') {[4;13Hsteps {[5;17Hscript {[6;21Hsh '''[7;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;34r8[9T[1;37r[2;13Hsteps {[3;17Hscript {[4;21Hsh '''[5;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[6;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[7;21H(B[m'''[8;17H}[9;13H}[10;9H}[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;9H}[4dstage('Deploy QA') {[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;21H'''[3;17H}[4;13H}[2d[?12l[?25h[?25l7[2;34r8[9T[1;37r[2;13H}[3;9H}[5dstage('Deploy Dev') {[6;13Hsteps {[7;17Hscript {[8;21Hsh '''[9;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[10;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;35r8[9T[1;37r[2;17H}[3;13H}[4;9H}[6dstage('Test Acceptance') {[7;13Hsteps {[8;17Hscript {[9;21Hsh 'curl localhost'[10;17H}[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[4;21H(B[msleep 10[2d[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;17H}[3;13H}[4;9H}[6dstage('Docker run') {[7;13Hsteps {[2d[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;21H// Push Docker images to Docker Hub[3;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[4;21H(B[msh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[6;21H(B[m// Logout from Docker Hub[7;21Hsh "docker logout"[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;21H// Login to Docker Hub[3;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;9Hstage('Docker Push') {[3;13Hsteps {[4;17Hscript {[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;13H}[3;9H}[A[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[4;17H(B[m}[2d[?12l[?25h[?25l7[2;35r8[3T[1;37r[2;5Hstages {[3;9Hstage('Build Docker Images') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[9T[1;37r[2;9HDOCKER_TAG = "v.${BUILD_ID}.0"[3;9HKUBE_NAMESPACE_DEV = "dev"[4;9HKUBE_NAMESPACE_QA = "qa"[5;9HKUBE_NAMESPACE_STAGING = "staging"[6;9HKUBE_NAMESPACE_PROD = "prod"[7;9HKUBECONFIG = credentials("kubeconfig")[8;9HDOCKER_PASS = credentials("DOCKER_HUB_PASS")[9;5H}[2d[?12l[?25h[?25l7[2;34r8[7T[1;37r[2;1Hpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[3d[?12l[?25h[?25l[4d[?12l[?25h[?25l[5d[?12l[?25h[?25l[6d[?12l[?25h[?25l[7d[?12l[?25h[?25l[8d[?12l[?25h[?25l[9d[?12l[?25h[?25l[10d[?12l[?25h[?25l[11d[?12l[?25h[?25l[12d[?12l[?25h[?25l[13d[?12l[?25h[?25l[14d[?12l[?25h[?25l[15d[?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l  [?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lC[?12l[?25h[?25lK[?12l[?25h[?25lER[?12l[?25h[?25l_[?12l[?25h[?25lP[?12l[?25h[?25lA[?12l[?25h[?25lS[?12l[?25h[?25lS[?12l[?25h[?25l [?12l[?25h[?25l=[?12l[?25h[?25l [?12l[?25h[?25lc[?12l[?25h[?25lre[?12l[?25h[?25ld[?12l[?25h[?25le[?12l[?25h[?25ln[?12l[?25h[?25lt[?12l[?25h[?25li[?12l[?25h[?25la[?12l[?25h[?25ll[?12l[?25h[?25ls[?12l[?25h[?25l([?12l[?25h[?25l"[?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lC[?12l[?25h[?25lK[?12l[?25h[?25lE[?12l[?25h[?25lR[?12l[?25h[?25l_[?12l[?25h[?25lH[?12l[?25h[?25lU[?12l[?25h[?25lB[?12l[?25h[?25l_[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[16;6H[?12l[?25h[?25l[17d[?12l[?25h[?25l[18;13H[?12l[?25h[?25l[19;39H[?12l[?25h[?25l[21;25H[?12l[?25h[?25l[22;43H[?12l[?25h[?25l[23;18H[?12l[?25h[?25l[25;10H[?12l[?25h[?25l[26d[?12l[?25h[?25l[27;31H[?12l[?25h[?25l[28;20H[?12l[?25h[?25l[29;25H[?12l[?25h[?25l[30;43H[?12l[?25h[?25l[31d[?12l[?25h[?25l[33d[?12l[?25h[?25l[34d[?12l[?25h[?25l7[2;35r8[35d
@@ -632,4 +615,92 @@ pipeline {
 [1;37r[34;5H}[?12l[?25h[?25l7[2;35r8[35d
 [1;37r[34;1H}[?12l[?25h[?25l7[2;35r8[35d
 [1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d(B[0;7mSave modified buffer?                                       [36;1H Y(B[m Yes[K[37d(B[0;7m N(B[m No           (B[0;7m^C(B[m Cancel[K[35;23H[?12l[?25h[?25l[36d(B[0;7m^G(B[m Get Help    (B[0;7mM-D(B[m DOS Format (B[0;7mM-A(B[m Append     (B[0;7mM-B(B[m Backup File[37;1H(B[0;7m^C(B[m Cancel[16G(B[0;7mM-M(B[m Mac Format (B[0;7mM-P(B[m Prepend    (B[0;7m^T(B[m To Files[35d(B[0;7mFile Name to Write: Jenkinsfile(B[m[35;32H[?12l[?25h[?25l[35;23H[1K (B[0;7m[ Writing... ](B[m[K[1;51H(B[0;7m        (B[m[35;21H(B[0;7m[ Wrote 107 lines ](B[m[J[37d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?
+[1;37r[34;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d(B[0;7mSave modified buffer?                                       [36;1H Y(B[m Yes[K[37d(B[0;7m N(B[m No           (B[0;7m^C(B[m Cancel[K[35;23H[?12l[?25h[?25l[36d(B[0;7m^G(B[m Get Help    (B[0;7mM-D(B[m DOS Format (B[0;7mM-A(B[m Append     (B[0;7mM-B(B[m Backup File[37;1H(B[0;7m^C(B[m Cancel[16G(B[0;7mM-M(B[m Mac Format (B[0;7mM-P(B[m Prepend    (B[0;7m^T(B[m To Files[35d(B[0;7mFile Name to Write: Jenkinsfile(B[m[35;32H[?12l[?25h[?25l[35;23H[1K (B[0;7m[ Writing... ](B[m[K[1;51H(B[0;7m        (B[m[35;21H(B[0;7m[ Wrote 107 lines ](B[m[J[37d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[A]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[K[K[K[Kadd.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+	add
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git add. .
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git commit -m "3ème push correction jenkinsfile"
+[main cc2e15a] 3ème push correction jenkinsfile
+ 3 files changed, 753 insertions(+), 21 deletions(-)
+ create mode 100644 Jenkinsfile.save.1
+ create mode 100644 {
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git push -u j[K[K]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ g
+it push -u [K[K[K[K
+Enumerating objects: 7, done.
+Counting objects:  14% (1/7)Counting objects:  28% (2/7)Counting objects:  42% (3/7)Counting objects:  57% (4/7)Counting objects:  71% (5/7)Counting objects:  85% (6/7)Counting objects: 100% (7/7)Counting objects: 100% (7/7), done.
+Delta compression using up to 2 threads
+Compressing objects:  20% (1/5)Compressing objects:  40% (2/5)Compressing objects:  60% (3/5)Compressing objects:  80% (4/5)Compressing objects: 100% (5/5)Compressing objects: 100% (5/5), done.
+Writing objects:  20% (1/5)Writing objects:  40% (2/5)Writing objects:  60% (3/5)Writing objects:  80% (4/5)Writing objects: 100% (5/5)Writing objects: 100% (5/5), 7.66 KiB | 2.55 MiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
+To github.com:Amelien77/Jenkins_devops_exam.git
+   e81baf0..cc2e15a  main -> main
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
+ Jenkinsfile          docker-compose.yml
+ Jenkinsfile.save     [0m[01;34mhelm[0m
+ Jenkinsfile.save.1   [01;34mmovie-service[0m
+ README.md            nginx_config.conf
+ [01;34mcast-service[0m        '{'
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo rm Jenkinsfile.save K[KJenkinsfilen[K.save.1
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
+ Jenkinsfile    docker-compose.yml   nginx_config.conf
+ README.md      [0m[01;34mhelm[0m                '{'
+ [01;34mcast-service[0m   [01;34mmovie-service[0m
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ tree
+[01;34m.[00m
+├── Jenkinsfile
+├── README.md
+├── [01;34mcast-service[00m
+│   ├── Dockerfile
+│   ├── [01;34mapp[00m
+│   │   ├── [01;34mapi[00m
+│   │   │   ├── casts.py
+│   │   │   ├── db.py
+│   │   │   ├── db_manager.py
+│   │   │   └── models.py
+│   │   └── main.py
+│   └── requirements.txt
+├── docker-compose.yml
+├── [01;34mhelm[00m
+│   ├── Chart.yaml
+│   ├── [01;34mcharts[00m
+│   ├── [01;34mtemplates[00m
+│   │   ├── NOTES.txt
+│   │   ├── _helpers.tpl
+│   │   ├── cast-service-claim0-persistentvolumeclaim.yaml
+│   │   ├── cast-service-deployment.yaml
+│   │   ├── deployment.yaml
+│   │   ├── hpa.yaml
+│   │   ├── ingress.yaml
+│   │   ├── movie-service-claim0-persistentvolumeclaim.yaml
+│   │   ├── movie-service-deployment.yaml
+│   │   ├── nginx-claim0-persistentvolumeclaim.yaml
+│   │   ├── nginx-deployment.yaml
+│   │   ├── nginx-service.yaml
+│   │   ├── postgres-data-cast-persistentvolumeclaim.yaml
+│   │   ├── postgres-data-movie-persistentvolumeclaim.yaml
+│   │   ├── service.yaml
+│   │   ├── serviceaccount.yaml
+│   │   └── [01;34mtests[00m
+│   │       └── test-connection.yaml
+│   └── values.yaml
+├── [01;34mmovie-service[00m
+│   ├── Dockerfile
+│   ├── [01;34mapp[00m
+│   │   ├── [01;34mapi[00m
+│   │   │   ├── db.py
+│   │   │   ├── db_manager.py
+│   │   │   ├── models.py
+│   │   │   ├── movies.py
+│   │   │   └── service.py
+│   │   └── main.py
+│   └── requirements.txt
+├── nginx_config.conf
+└── {
+
+10 directories, 39 files
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano j[KJenkinsfile 
+[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[5d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[35d[K[14d[?12l[?25h[?25l[8d[?12l[?25h[?25l[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[26d[?12l[?25h[?25l[29d[?12l[?25h[?25l[32d[?12l[?25h[?25l[2;35r[35;1H
+[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;21H// Logout from Docker Hub[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Docker run') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;21H(B[msleep 10[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Test Acceptance') {[34;13Hsteps {[?12l[?25h[?25l7[2
