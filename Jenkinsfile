@@ -60,8 +60,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
-                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    kubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    kubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
                     '''
                 }
             }
@@ -71,8 +71,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
-                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    kubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    kubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
                     '''
                 }
             }
@@ -82,8 +82,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
-                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    kubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    kubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
                     '''
                 }
             }
@@ -96,12 +96,11 @@ pipeline {
                         input message: 'Do you want to deploy in production?', ok: 'Yes'
                     }
                     sh '''
-                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
-                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    kubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    kubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
                     '''
                 }
             }
         }
     }
 }
-

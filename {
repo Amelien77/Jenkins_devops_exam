@@ -539,168 +539,430 @@ To github.com:Amelien77/Jenkins_devops_exam.git
 
 10 directories, 39 files
 ]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano j[KJenkinsfile 
-[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[5d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[35d[K[14d[?12l[?25h[?25l[8d[?12l[?25h[?25l[2d[?12l[?25h5;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[2;1H[?12l[?25h[?25l[K[?12l[?25h[?25l[35;21H(B[0;7m[ Nothing was cut ](B[m[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35;40H[2d[?12l[?25h[?25l[35d[K[2d  [?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d[3;9Hstage('Deploy Prod') {[4;13Hsteps {[5;17Hscript {[6;21Htimeout(time: 15, unit: "MINUTES") {[7;25Hinput message: 'Do you want to depl(B[0;7m>[8;21H(B[m}[9dsh '''[10;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[11;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[12;21H(B[m'''[13;17H}[14;13H}[15;9H}[16;5H}[17d}[18d[?12l[?25h[?25l[15d[?12l[?25h[?25l[3d[?12l[?25h[?25l[2;35r[2;1H[2T[1;37r[2;13H}[3;9H}[A[?12l[?25h[?25l7[2;35r8[3T[1;37r[2;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[3;21H(B[m'''[4;17H}[2d[?12l[?25h[?25l7[2;35r8[6T[1;37r[3;9Hstage('Deploy Staging') {[4;13Hsteps {[5;17Hscript {[6;21Hsh '''[7;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;34r8[9T[1;37r[2;13Hsteps {[3;17Hscript {[4;21Hsh '''[5;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[6;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[7;21H(B[m'''[8;17H}[9;13H}[10;9H}[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;9H}[4dstage('Deploy QA') {[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;21H'''[3;17H}[4;13H}[2d[?12l[?25h[?25l7[2;34r8[9T[1;37r[2;13H}[3;9H}[5dstage('Deploy Dev') {[6;13Hsteps {[7;17Hscript {[8;21Hsh '''[9;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[10;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;35r8[9T[1;37r[2;17H}[3;13H}[4;9H}[6dstage('Test Acceptance') {[7;13Hsteps {[8;17Hscript {[9;21Hsh 'curl localhost'[10;17H}[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[4;21H(B[msleep 10[2d[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;17H}[3;13H}[4;9H}[6dstage('Docker run') {[7;13Hsteps {[2d[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;21H// Push Docker images to Docker Hub[3;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[4;21H(B[msh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[6;21H(B[m// Logout from Docker Hub[7;21Hsh "docker logout"[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;21H// Login to Docker Hub[3;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[2;1H(B[m[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;9Hstage('Docker Push') {[3;13Hsteps {[4;17Hscript {[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;13H}[3;9H}[A[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[4;17H(B[m}[2d[?12l[?25h[?25l7[2;35r8[3T[1;37r[2;5Hstages {[3;9Hstage('Build Docker Images') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[9T[1;37r[2;9HDOCKER_TAG = "v.${BUILD_ID}.0"[3;9HKUBE_NAMESPACE_DEV = "dev"[4;9HKUBE_NAMESPACE_QA = "qa"[5;9HKUBE_NAMESPACE_STAGING = "staging"[6;9HKUBE_NAMESPACE_PROD = "prod"[7;9HKUBECONFIG = credentials("kubeconfig")[8;9HDOCKER_PASS = credentials("DOCKER_HUB_PASS")[9;5H}[2d[?12l[?25h[?25l7[2;34r8[7T[1;37r[2;1Hpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[3d[?12l[?25h[?25l[4d[?12l[?25h[?25l[5d[?12l[?25h[?25l[6d[?12l[?25h[?25l[7d[?12l[?25h[?25l[8d[?12l[?25h[?25l[9d[?12l[?25h[?25l[10d[?12l[?25h[?25l[11d[?12l[?25h[?25l[12d[?12l[?25h[?25l[13d[?12l[?25h[?25l[14d[?12l[?25h[?25l[15d[?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l  [?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lC[?12l[?25h[?25lK[?12l[?25h[?25lER[?12l[?25h[?25l_[?12l[?25h[?25lP[?12l[?25h[?25lA[?12l[?25h[?25lS[?12l[?25h[?25lS[?12l[?25h[?25l [?12l[?25h[?25l=[?12l[?25h[?25l [?12l[?25h[?25lc[?12l[?25h[?25lre[?12l[?25h[?25ld[?12l[?25h[?25le[?12l[?25h[?25ln[?12l[?25h[?25lt[?12l[?25h[?25li[?12l[?25h[?25la[?12l[?25h[?25ll[?12l[?25h[?25ls[?12l[?25h[?25l([?12l[?25h[?25l"[?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lC[?12l[?25h[?25lK[?12l[?25h[?25lE[?12l[?25h[?25lR[?12l[?25h[?25l_[?12l[?25h[?25lH[?12l[?25h[?25lU[?12l[?25h[?25lB[?12l[?25h[?25l_[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[1P[?12l[?25h[?25l[16;6H[?12l[?25h[?25l[17d[?12l[?25h[?25l[18;13H[?12l[?25h[?25l[19;39H[?12l[?25h[?25l[21;25H[?12l[?25h[?25l[22;43H[?12l[?25h[?25l[23;18H[?12l[?25h[?25l[25;10H[?12l[?25h[?25l[26d[?12l[?25h[?25l[27;31H[?12l[?25h[?25l[28;20H[?12l[?25h[?25l[29;25H[?12l[?25h[?25l[30;43H[?12l[?25h[?25l[31d[?12l[?25h[?25l[33d[?12l[?25h[?25l[34d[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H// Logout from Docker Hub[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Docker run') {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsleep 10[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l[A   }[?12l[?25h[?25l[A   }[?12l[?25h[?25l[31;29H[?12l[?25h[?25l[30;43H[?12l[?25h[?25l[29;25H[?12l[?25h[?25l[28;20H[?12l[?25h[?25l[27;30H[?12l[?25h[?25l[A[?12l[?25h[?25l[25;10H[?12l[?25h[?25l[A   }[?12l[?25h[?25l[A   }[?12l[?25h[?25l[22;39H[?12l[?25h[?25l[Aker [?12l[?25h[?25l[A[?12l[?25h[?25l[19;43H[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[15;43H[?12l[?25h[?25l[A[?12l[?25h[?25l[13;25H[?12l[?25h[?25l[12;20H[?12l[?25h[?25l[13;25H[?12l[?25h[?25l[14;43H[?12l[?25h[?25l[15d[?12l[?25h[?25l[16d[?12l[?25h[?25l[17;43H[?12l[?25h[?25l[18d[?12l[?25h[?25l[19d[?12l[?25h[?25l[20d[?12l[?25h[?25l[21;43H[?12l[?25h[?25l[22;39H[?12l[?25h[?25l[23;18H[?12l[?25h[?25l[24;14H[?12l[?25h[?25l[25;10H[?12l[?25h[?25l[26d[?12l[?25h[?25l[27;30H[?12l[?25h[?25l[28;20H[?12l[?25h[?25l[29;25H[?12l[?25h[?25l[30;43H[?12l[?25h[?25l[31;29H[?12l[?25h[?25l[32;18H[?12l[?25h[?25l[33;14H[?12l[?25h[?25l[34;10H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Test Acceptance') {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh 'curl localhost'[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Deploy Dev') {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh '''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H'''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Deploy QA') {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh '''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H'''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Deploy Staging') {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh '''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H'''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9Hstage('Deploy Prod') {[?12l[?25h[?25l7[2;35r8[35d[2S[1;37r[33;13Hsteps {[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Htimeout(time: 15, unit: "MINUTES") {[34;43H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;25Hinput message: 'Do you want to depl(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hsh '''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[34;43H(B[m[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;21H'''[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;5H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H}[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
-[1;37r[34;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[35d(B[0;7mSave modified buffer?                                       [36;1H Y(B[m Yes[K[37d(B[0;7m N(B[m No           (B[0;7m^C(B[m Cancel[K[35;23H[?12l[?25h[?25l[36d(B[0;7m^G(B[m Get Help    (B[0;7mM-D(B[m DOS Format (B[0;7mM-A(B[m Append     (B[0;7mM-B(B[m Backup File[37;1H(B[0;7m^C(B[m Cancel[16G(B[0;7mM-M(B[m Mac Format (B[0;7mM-P(B[m Prepend    (B[0;7m^T(B[m To Files[35d(B[0;7mFile Name to Write: Jenkinsfile(B[m[35;32H[?12l[?25h[?25l[35;23H[1K (B[0;7m[ Writing... ](B[m[K[1;51H(B[0;7m        (B[m[35;21H(B[0;7m[ Wrote 107 lines ](B[m[J[37d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[A]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git init [K[K[K[K[Kadd.
-git: 'add.' is not a git command. See 'git --help'.
-
-The most similar command is
-	add
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git add. .
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git commit -m "3ème push correction jenkinsfile"
-[main cc2e15a] 3ème push correction jenkinsfile
- 3 files changed, 753 insertions(+), 21 deletions(-)
- create mode 100644 Jenkinsfile.save.1
- create mode 100644 {
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git push -u j[K[K]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ g
-it push -u [K[K[K[K
-Enumerating objects: 7, done.
-Counting objects:  14% (1/7)Counting objects:  28% (2/7)Counting objects:  42% (3/7)Counting objects:  57% (4/7)Counting objects:  71% (5/7)Counting objects:  85% (6/7)Counting objects: 100% (7/7)Counting objects: 100% (7/7), done.
+[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[5d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[35d[K[14d[?12l[?25h[?25l[8d[?12l[?25h[?25l[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[26d[?12l[?25h[?25l[29d[?12l[?25h[?25l[32d[?12l[?25h[?25l[2;35r[35;1H
+[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;21H// Logout from Docker Hub[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Docker run') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;21H(B[msleep 10[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Test Acceptance') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh 'curl localhost'[34;17H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;13H}[33;9H}[34d[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;9Hstage('Deploy Dev') {[33;13Hsteps {[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;21Hsh '''[33;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;21H'''[33;17H}[34;13H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;9H}[34dstage('Deploy QA') {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;13Hsteps {[33;17Hscript {[34;21Hsh '''[?12l[?25h[?25l7[2;35r8[35d[12S[1;37r[23;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[24;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[25;21H(B[m'''[26;17H}[27;13H}[28;9H}[30dstage('Deploy Staging') {[31;13Hsteps {[32;17Hscript {[33;21Hsh '''[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[33;21H(B[m'''[34;17H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;13H}[33;9H}[34d[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;9Hstage('Deploy Prod') {[33;13Hsteps {[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d[9S[1;37r[26;21Htimeout(time: 15, unit: "MINUTES") {[27;25Hinput message: 'Do you want to depl(B[0;7m>[28;21H(B[m}[29dsh '''[30;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[31;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[32;21H(B[m'''[33;17H}[34;13H}[?12l[?25h[?25l7[2;35r8[35d[5S[1;37r[30;9H}[31;5H}[32d}[34d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[36d[J[37d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ y[C[Kgit add .
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git commit -m "4ème push Su[K[KSuppression des saub[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kh Correction de jenkinsfile"[C[C[C[C[C[1P[1@c
+[main b2c0200] 4ème push correction de jenkinsfile
+ 3 files changed, 177 insertions(+), 205 deletions(-)
+ delete mode 100644 Jenkinsfile.save
+ delete mode 100644 Jenkinsfile.save.1
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git push
+Enumerating objects: 5, done.
+Counting objects:  20% (1/5)Counting objects:  40% (2/5)Counting objects:  60% (3/5)Counting objects:  80% (4/5)Counting objects: 100% (5/5)Counting objects: 100% (5/5), done.
 Delta compression using up to 2 threads
-Compressing objects:  20% (1/5)Compressing objects:  40% (2/5)Compressing objects:  60% (3/5)Compressing objects:  80% (4/5)Compressing objects: 100% (5/5)Compressing objects: 100% (5/5), done.
-Writing objects:  20% (1/5)Writing objects:  40% (2/5)Writing objects:  60% (3/5)Writing objects:  80% (4/5)Writing objects: 100% (5/5)Writing objects: 100% (5/5), 7.66 KiB | 2.55 MiB/s, done.
-Total 5 (delta 2), reused 0 (delta 0)
+Compressing objects:  33% (1/3)Compressing objects:  66% (2/3)Compressing objects: 100% (3/3)Compressing objects: 100% (3/3), done.
+Writing objects:  33% (1/3)Writing objects:  66% (2/3)Writing objects: 100% (3/3)Writing objects: 100% (3/3), 1.87 KiB | 959.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
 To github.com:Amelien77/Jenkins_devops_exam.git
-   e81baf0..cc2e15a  main -> main
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
- Jenkinsfile          docker-compose.yml
- Jenkinsfile.save     [0m[01;34mhelm[0m
- Jenkinsfile.save.1   [01;34mmovie-service[0m
- README.md            nginx_config.conf
- [01;34mcast-service[0m        '{'
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo rm Jenkinsfile.save K[KJenkinsfilen[K.save.1
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ ls
- Jenkinsfile    docker-compose.yml   nginx_config.conf
- README.md      [0m[01;34mhelm[0m                '{'
- [01;34mcast-service[0m   [01;34mmovie-service[0m
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ tree
-[01;34m.[00m
-├── Jenkinsfile
-├── README.md
-├── [01;34mcast-service[00m
-│   ├── Dockerfile
-│   ├── [01;34mapp[00m
-│   │   ├── [01;34mapi[00m
-│   │   │   ├── casts.py
-│   │   │   ├── db.py
-│   │   │   ├── db_manager.py
-│   │   │   └── models.py
-│   │   └── main.py
-│   └── requirements.txt
-├── docker-compose.yml
-├── [01;34mhelm[00m
-│   ├── Chart.yaml
-│   ├── [01;34mcharts[00m
-│   ├── [01;34mtemplates[00m
-│   │   ├── NOTES.txt
-│   │   ├── _helpers.tpl
-│   │   ├── cast-service-claim0-persistentvolumeclaim.yaml
-│   │   ├── cast-service-deployment.yaml
-│   │   ├── deployment.yaml
-│   │   ├── hpa.yaml
-│   │   ├── ingress.yaml
-│   │   ├── movie-service-claim0-persistentvolumeclaim.yaml
-│   │   ├── movie-service-deployment.yaml
-│   │   ├── nginx-claim0-persistentvolumeclaim.yaml
-│   │   ├── nginx-deployment.yaml
-│   │   ├── nginx-service.yaml
-│   │   ├── postgres-data-cast-persistentvolumeclaim.yaml
-│   │   ├── postgres-data-movie-persistentvolumeclaim.yaml
-│   │   ├── service.yaml
-│   │   ├── serviceaccount.yaml
-│   │   └── [01;34mtests[00m
-│   │       └── test-connection.yaml
-│   └── values.yaml
-├── [01;34mmovie-service[00m
-│   ├── Dockerfile
-│   ├── [01;34mapp[00m
-│   │   ├── [01;34mapi[00m
-│   │   │   ├── db.py
-│   │   │   ├── db_manager.py
-│   │   │   ├── models.py
-│   │   │   ├── movies.py
-│   │   │   └── service.py
-│   │   └── main.py
-│   └── requirements.txt
-├── nginx_config.conf
-└── {
+   cc2e15a..b2c0200  main -> main
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ git pushcommit -m "4ème push correction de jenkinsfile"[C[C[C[C[C[C[Cadd .[K[C[C[Csudo nano Jenkinsfile 
+[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[3d[?12l[?25h[?25l[4d[?12l[?25h[?25l[5d[?12l[?25h[?25l[6d[?12l[?25h[?25l[7d[?12l[?25h[?25l[8d[?12l[?25h[?25l[9d[?12l[?25h[?25l[10d[?12l[?25h[?25l[11d[?12l[?25h[?25l[12d[?12l[?25h[?25l[13d[?12l[?25h[?25l[14d[?12l[?25h[?25l[15d[?12l[?25h[?25l[16d[?12l[?25h[?25l[17d[?12l[?25h[?25l[18d[?12l[?25h[?25l[19d[?12l[?25h[?25l[20d[?12l[?25h[?25l[21d[?12l[?25h[?25l[22d[?12l[?25h[?25l[23d[?12l[?25h[?25l[24d[?12l[?25h[?25l[25d[?12l[?25h[?25l[26d[?12l[?25h[?25l[27d[?12l[?25h[?25l[35d[K[28d[?12l[?25h[?25l[29d[?12l[?25h[?25l[31d[?12l[?25h[?25l[32d[?12l[?25h[?25l[33d[?12l[?25h[?25l[34d[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;1H[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;21H// Logout from Docker Hub[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;9H}[?12l[?25h[?25l7[2;35r8[35d[2S[1;37r[34;9Hstage('Docker run') {[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;21Hsleep 10[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;17H}[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;13H}[?12l[?25h[?25l7[2;35r8[35d
+[1;37r[34;9H}[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25ls[?12l[?25h[?25lh[?12l[?25h[?25l [?12l[?25h[?25l"[?12l[?25h[?25ld[?12l[?25h[?25lo[?12l[?25h[?25lc[?12l[?25h[?25lk[?12l[?25h[?25le[?12l[?25h[?25lr[?12l[?25h[?25l [?12l[?25h[?25lp[?12l[?25h[?25lu[?12l[?25h[?25ls[?12l[?25h[?25lh[?12l[?25h[?25l [?12l[?25h[?25l$[?12l[?25h[?25l{[?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lCK[?12l[?25h[?25lE[?12l[?25h[?25lR[?12l[?25h[?25l_[?12l[?25h[?25lI[?12l[?25h[?25lD[?12l[?25h[?25l}[?12l[?25h[?25l/[?12l[?25h[?25l$[?12l[?25h[?25l{[?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lC[?12l[?25h[?25lK[?12l[?25h[?25lE[?12l[?25h[?25lR[?12l[?25h[?25l(B[0;7m<(B[mCKER_IMAGE_CAST}:${DOCKER_TAG}"[K[7G[?12l[?25h[?25lI[?12l[?25h[?25lM[?12l[?25h[?25lA[?12l[?25h[?25lG[?12l[?25h[?25lE[?12l[?25h[?25l_[?12l[?25h[?25lC[?12l[?25h[?25lA[?12l[?25h[?25lS[?12l[?25h[?25lT[?12l[?25h[?25l}[?12l[?25h[?25l:[?12l[?25h[?25l$[?12l[?25h[?25l{[?12l[?25h[?25lD[?12l[?25h[?25lO[?12l[?25h[?25lCK[?12l[?25h[?25lE[?12l[?25h[?25lR[?12l[?25h[?25l_[?12l[?25h[?25lT[?12l[?25h[?25lA[?12l[?25h[?25lG[?12l[?25h[?25l}[?12l[?25h[?25l"[?12l[?25h[?25l[18;20H[1K sh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[19;1H(B[m[?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[A(B[0;7m<(B[mCKER_IMAGE_CAST}:${DOCKER_TAG}"[K[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[18;20H[1K sh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[18;58H(B[m[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[19d[?12l[?25h[?25l[20d[?12l[?25h[?25l[21;25H[?12l[?25h[?25l[22d[?12l[?25h[?25l[23;18H[?12l[?25h[?25l[24;14H[?12l[?25h[?25l[A   }[?12l[?25h[?25l[22;25H[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[19;25H[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[A[?12l[?25h[?25l[15;25H[?12l[?25h[?25l[A[?12l[?25h[?25l[15d[?12l[?25h[?25l[16d[?12l[?25h[?25l[15;25H[?12l[?25h[?25l[16d[?12l[?25h[?25l[17;25H[?12l[?25h[?25l[18d[?12l[?25h[?25l[19d[?12l[?25h[?25l[20d[?12l[?25h[?25l[21;25H[?12l[?25h[?25l[22d[?12l[?25h[?25l[A[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[A[?12l[?25h[?25l[21d[?12l[?25h[?25l[18d[?12l[?25h[?25l[15d[?12l[?25h[?25l[12d[?12l[?25h[?25l[9d[?12l[?25h[?25l[6d[?12l[?25h[?25l[2;34r[2;1H[2T[1;37r[2;5H}[?12l[?25h[?25l7[2;34r8[6T[1;37r[2;9HKUBE_NAMESPACE_DEV = "dev"[3;9HKUBE_NAMESPACE_QA = "qa"[4;9HKUBE_NAMESPACE_STAGING = "staging"[5;9HKUBE_NAMESPACE_PROD = "prod"[6;9HKUBECONFIG = credentials("kubeconfig")[7;9HDOCKER_PASS = credentials("DOCKER_PASS")[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[2;9HDOCKER_IMAGE_CAST = "cast-service"[3;9HDOCKER_IMAGE_MOVIE = "movie-service"[4;9HDOCKER_TAG = "v.${BUILD_ID}.0"[2d[?12l[?25h[?25l7[2;34r8[3T[1;37r[3;5Henvironment {[4;9HDOCKER_ID = "ameliendevops"[2d[?12l[?25h[?25l7[2;34r8[2T[1;37r[2;1Hpipeline {[3;5Hagent any[A[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[14d[?12l[?25h[?25l[11d[?12l[?25h[?25l[8d[?12l[?25h[?25l[5d[?12l[?25h[?25l[2d[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[11d[?12l[?25h[?25l[8d[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[11d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[14d[?12l[?25h[?25l[11d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[17d[?12l[?25h[?25l[14d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[26d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[26d[?12l[?25h[?25l[29d[?12l[?25h[?25l[32d[?12l[?25h[?25l[2;35r[35;1H
+[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;21H// Logout from Docker Hub[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Docker run') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;21H(B[msleep 10[?12l[?25h[?25l7[2;35r8[35d[6S[1;37r[29;17H}[30;13H}[31;9H}[33dstage('Test Acceptance') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[6S[1;37r[29;17Hscript {[30;21Hsh 'curl localhost'[31;17H}[32;13H}[33;9H}[34d[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;9Hstage('Deploy Dev') {[33;13Hsteps {[34;17Hscript {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;21Hsh '''[33;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[6S[1;37r[29;21H'''[30;17H}[31;13H}[32;9H}[34dstage('Deploy QA') {[?12l[?25h[?25l7[2;35r8[35d[12S[1;37r[23;13Hsteps {[24;17Hscript {[25;21Hsh '''[26;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[27;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[28;21H(B[m'''[29;17H}[30;13H}[31;9H}[33dstage('Deploy Staging') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh '''[34;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;21Hkubectl apply -f movie-service/kubernet(B[0;7m>[33;21H(B[m'''[34;17H}[?12l[?25h[?25l7[2;35r8[35d[12S[1;37r[23;13H}[24;9H}[26dstage('Deploy Prod') {[27;13Hsteps {[28;17Hscript {[29;21Htimeout(time: 15, unit: "MINUTES") {[30;25Hinput message: 'Do you want to depl(B[0;7m>[31;21H(B[m}[32dsh '''[33;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[34;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[6S[1;37r[29;21H'''[30;17H}[31;13H}[32;9H}[33;5H}[34d}[?12l[?25h[?25l7[2;35r8[35d[2S[1;37r[34;1H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[31d[?12l[?25h[?25l[25d[?12l[?25h[?25l[22d[?12l[?25h[?25l[19d[?12l[?25h[?25l[16d[?12l[?25h[?25l[19d[?12l[?25h[?25l[25d[?12l[?25h[?25l[31d[?12l[?25h[?25l[34d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[31d[?12l[?25h[?25l[28d[?12l[?25h[?25l[25d[?12l[?25h[?25l[22d[?12l[?25h[?25l[25d[?12l[?25h[?25l[28d[?12l[?25h[?25l[25d[?12l[?25h[37;1H[?1049l[23;0;0t[?1l>[?1049h[22;0;0t[1;38r[?12l[?25h[39;49m(B[m[4l[?7h[H[2J(B[0;7m  GNU nano 4.8            Jenkinsfile                       [2;21H(B[m'''[3;17H}[4;13H}[5;9H}[7dstage('Deploy Staging') {[8;13Hsteps {[9;17Hscript {[10;21Hsh '''[11;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[12;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[13;21H(B[m'''[14;17H}[15;13H}[16;9H}[18dstage('Deploy Prod') {[19;13Hsteps {[20;17Hscript {[21;21Htimeout(time: 15, unit: "MINUTES") {[22;25Hinput message: 'Do you want to depl(B[0;7m>[23;21H(B[m}[24dsh '''[25;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[26;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[27;21H(B[m'''[28;17H}[29;13H}[30;9H}[31;5H}[32d}[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[25d[?2004h[?1h=[?1h=[H[2J(B[0;7m  GNU nano 4.8            Jenkinsfile                       [2;21H(B[m'''[3;17H}[4;13H}[5;9H}[7dstage('Deploy Staging') {[8;13Hsteps {[9;17Hscript {[10;21Hsh '''[11;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[12;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[13;21H(B[m'''[14;17H}[15;13H}[16;9H}[18dstage('Deploy Prod') {[19;13Hsteps {[20;17Hscript {[21;21Htimeout(time: 15, unit: "MINUTES") {[22;25Hinput message: 'Do you want to depl(B[0;7m>[23;21H(B[m}[24dsh '''[25;21Hkubectl apply -f cast-service/kubernete(B[0;7m>[26;21H(B[mkubectl apply -f movie-service/kubernet(B[0;7m>[27;21H(B[m'''[28;17H}[29;13H}[30;9H}[31;5H}[32d}[36d[1;27H(B[0;7m           [1;61H  Jenkinsfile                                                          [1;130H(B[m[11;60Hs/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[12;60Hes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[22;60Hoy in production?', ok: 'Yes'[25;60Hs/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[26;60Hes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[37d(B[0;7m^G(B[m Get Help     (B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut Text     (B[0;7m^J(B[m Justify[81G(B[0;7m^C(B[m Cur Pos[97G(B[0;7mM-U(B[m Undo[37;113H(B[0;7mM-A(B[m Mark Text[38d(B[0;7m^X(B[m Exit[38;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste Text   (B[0;7m^T(B[m To Spell     (B[0;7m^_(B[m Go To Line   (B[0;7mM-E(B[m Redo[38;113H(B[0;7mM-6(B[m Copy Text[36d[?25l[25d[?12l[?25h[?25l[?12l[?25h[?25l[22d[?12l[?25h[?25l[19d[?12l[?25h[?25l[16d[?12l[?25h[?25l[13d[?12l[?25h[?25l[10d[?12l[?25h[?25l[7d[?12l[?25h[?25l[13d[?12l[?25h[?25l[22d[?12l[?25h[?25l[37d[J[38d[?12l[?25h[38;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sduo nan[K[K[K[K[K[K[K[Ksudo nano Jenkinsfile 
+[?2004h[?1049h[22;0;0t[1;38r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[36;59H(B[0;7m[ Reading... ](B[m[36;57H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8                                                Jenkinsfile                                                          [1;130H(B[m[37d(B[0;7m^G(B[m Get Help     (B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut Text     (B[0;7m^J(B[m Justify[81G(B[0;7m^C(B[m Cur Pos[97G(B[0;7mM-U(B[m Undo[37;113H(B[0;7mM-A(B[m Mark Text[38d(B[0;7m^X(B[m Exit[38;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste Text   (B[0;7m^T(B[m To Spell     (B[0;7m^_(B[m Go To Line   (B[0;7mM-E(B[m Redo[38;113H(B[0;7mM-6(B[m Copy Text[36d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.yml build'[23;17H}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[33;21H// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[35;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l[36d[J[38d[?12l[?25h[38;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo cat Jenkinsfile n[K[K
+pipeline {
+    agent any
 
-10 directories, 39 files
-]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano j[KJenkinsfile 
-[?2004h[?1049h[22;0;0t[1;37r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[35;24H(B[0;7m[ Reading... ](B[m[35;22H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8            Jenkinsfile                       [1;59H(B[m[36d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[37d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Paste Tex(B[0;7m^T(B[m To Spell[35d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[23;17H(B[m}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${D(B[0;7m>[33;21H(B[m// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[5d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[20d[?12l[?25h[?25l[35d[K[14d[?12l[?25h[?25l[8d[?12l[?25h[?25l[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[8d[?12l[?25h[?25l[11d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[23d[?12l[?25h[?25l[26d[?12l[?25h[?25l[29d[?12l[?25h[?25l[32d[?12l[?25h[?25l[2;35r[35;1H
-[1;37r[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_I(B[0;7m>[34;1H(B[m[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;21H// Logout from Docker Hub[34;21Hsh "docker logout"[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Docker run') {[34;13Hsteps {[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17Hscript {[33;21Hsh 'docker-compose -f docker-compose.ym(B[0;7m>[34;21H(B[msleep 10[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[32;17H}[33;13H}[34;9H}[?12l[?25h[?25l7[2;35r8[35d[3S[1;37r[33;9Hstage('Test Acceptance') {[34;13Hsteps {[?12l[?25h[?25l7[2
+    environment {
+        DOCKER_ID = "ameliendevops"
+        DOCKER_IMAGE_CAST = "cast-service"
+        DOCKER_IMAGE_MOVIE = "movie-service"
+        DOCKER_TAG = "v.${BUILD_ID}.0"
+        KUBE_NAMESPACE_DEV = "dev"
+        KUBE_NAMESPACE_QA = "qa"
+        KUBE_NAMESPACE_STAGING = "staging"
+        KUBE_NAMESPACE_PROD = "prod"
+        KUBECONFIG = credentials("kubeconfig")
+        DOCKER_PASS = credentials("DOCKER_PASS")
+    }
+
+    stages {
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    sh 'docker-compose -f docker-compose.yml build'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    // Login to Docker Hub
+                    sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"
+
+                    // Push Docker images to Docker Hub
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"
+
+                    // Logout from Docker Hub
+                    sh "docker logout"
+                }
+            }
+        }
+
+        stage('Docker run') {
+            steps {
+                script {
+                    sh 'docker-compose -f docker-compose.yml up -d'
+                    sleep 10
+                }
+            }
+        }
+
+        stage('Test Acceptance') {
+            steps {
+                script {
+                    sh 'curl localhost'
+                }
+            }
+        }
+
+        stage('Deploy Dev') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy QA') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy Staging') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy Prod') {
+            steps {
+                script {
+                    timeout(time: 15, unit: "MINUTES") {
+                        input message: 'Do you want to deploy in production?', ok: 'Yes'
+                    }
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    '''
+                }
+            }
+        }
+    }
+}
+
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano Jenkinsfile 
+[?2004h[?1049h[22;0;0t[1;38r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[36;59H(B[0;7m[ Reading... ](B[m[36;57H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8                                                Jenkinsfile                                                          [1;130H(B[m[37d(B[0;7m^G(B[m Get Help     (B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut Text     (B[0;7m^J(B[m Justify[81G(B[0;7m^C(B[m Cur Pos[97G(B[0;7mM-U(B[m Undo[37;113H(B[0;7mM-A(B[m Mark Text[38d(B[0;7m^X(B[m Exit[38;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste Text   (B[0;7m^T(B[m To Spell     (B[0;7m^_(B[m Go To Line   (B[0;7mM-E(B[m Redo[38;113H(B[0;7mM-6(B[m Copy Text[36d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.yml build'[23;17H}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[33;21H// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[35;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l[1;122H(B[0;7mModified(B[m[2;36r[36;1H
+[1;38r[35;1H[K[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H// Logout from Docker Hub[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh "docker logout"[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;17H}[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Docker run') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh 'docker-compose -f docker-compose.yml up -d'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsleep 10[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Test Acceptance') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh 'curl localhost'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Dev') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy QA') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;21Hsh '''[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Staging') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;21H'''[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;13H}[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Prod') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Htimeout(time: 15, unit: "MINUTES") {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;25Hinput message: 'Do you want to deploy in production?', ok: 'Yes'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;5H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;1H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[K[?12l[?25h[?25l[?12l[?25h[?25l[36;57H(B[0;7m[ Nothing was cut ](B[m[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36d[K[2;9H}[4dstage('Deploy Prod') {[5;13Hsteps {[6;17Hscript {[7;21Htimeout(time: 15, unit: "MINUTES") {[8;25Hinput message: 'Do you want to deploy in production?', ok: 'Yes'[9;21H}[10dsh '''[11;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[12;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[13;21H'''[14;17H}[15;13H}[16;9H}[17;5H}[18d}[19d[?12l[?25h[?25l[16d[?12l[?25h[?25l[10d[?12l[?25h[?25l[7d[?12l[?25h[?25l[4d[?12l[?25h[?25l[2;36r[2;1HM[1;38r[2;13H}[?12l[?25h[?25l7[2;36r8[12T[1;38r[2;17H}[3;13H}[4;9H}[6dstage('Deploy Staging') {[7;13Hsteps {[8;17Hscript {[9;21Hsh '''[10;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[11;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGI(B[0;7m>[12;21H(B[m'''[13;17H}[2d[?12l[?25h[?25l7[2;36r8[3T[1;38r[2;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[3;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[4;21H'''[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;13Hsteps {[3;17Hscript {[4;21Hsh '''[2d[?12l[?25h[?25l7[2;35r8[6T[1;38r[2;21H'''[3;17H}[4;13H}[5;9H}[7dstage('Deploy QA') {[2d[?12l[?25h[?25l7[2;35r8[9T[1;38r[2;13H}[3;9H}[5dstage('Deploy Dev') {[6;13Hsteps {[7;17Hscript {[8;21Hsh '''[9;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[10;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17Hscript {[3;21Hsh 'curl localhost'[4;17H}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[3;9Hstage('Test Acceptance') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17H}[3;13H}[4;9H}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.yml up -d'[4;21Hsleep 10[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[3;9Hstage('Docker run') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17H}[3;13H}[4;9H}[2d[?12l[?25h[?25l7[2;36r8[3T[1;38r[3;21H// Logout from Docker Hub[4;21Hsh "docker logout"[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;21H// Push Docker images to Docker Hub[3;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[4;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;21H// Login to Docker Hub[3;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[A[?12l[?25h[?25l7[2;35r8[6T[1;38r[2;13H}[3;9H}[5dstage('Docker Push') {[6;13Hsteps {[7;17Hscript {[2d[?12l[?25h[?25l7[2;35r8[9T[1;38r[2;9HDOCKER_PASS = credentials("DOCKER_PASS")[3;5H}[5dstages {[6;9Hstage('Build Docker Images') {[7;13Hsteps {[8;17Hscript {[9;21Hsh 'docker-compose -f docker-compose.yml build'[10;17H}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;9HKUBE_NAMESPACE_STAGING = "staging"[3;9HKUBE_NAMESPACE_PROD = "prod"[4;9HKUBECONFIG = credentials("kubeconfig")[2d[?12l[?25h[?25l7[2;35r8[6T[1;38r[2;9HDOCKER_ID = "ameliendevops"[3;9HDOCKER_IMAGE_CAST = "cast-service"[4;9HDOCKER_IMAGE_MOVIE = "movie-service"[5;9HDOCKER_TAG = "v.${BUILD_ID}.0"[6;9HKUBE_NAMESPACE_DEV = "dev"[7;9HKUBE_NAMESPACE_QA = "qa"[2d[?12l[?25h[?25l7[2;36r8[4T[1;38r[2;1Hpipeline {[3;5Hagent any[5;5Henvironment {[2d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[2d[?12l[?25h[?25l[?12l[?25h[?25l[5d[?12l[?25h[?25l[14d[?12l[?25h[?25l[17d[?12l[?25h[?25l[20d[?12l[?25h[?25l[29d[?12l[?25h[?25l[35d[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[34;21H// Logout from Docker Hub[35;21Hsh "docker logout"[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;17H}[34;13H}[35;9H}[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[34;9Hstage('Docker run') {[35;13Hsteps {[?12l[?25h[?25l7[2;36r8[36d[6S[1;38r[30;17Hscript {[31;21Hsh 'docker-compose -f docker-compose.yml up -d'[32;21Hsleep 10[33;17H}[34;13H}[35;9H}[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[34;9Hstage('Test Acceptance') {[35;13Hsteps {[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;17Hscript {[34;21Hsh 'curl localhost'[35;17H}[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;13H}[34;9H}[35d[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;9Hstage('Deploy Dev') {[34;13Hsteps {[35;17Hscript {[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;21Hsh '''[34;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[35;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;21H'''[34;17H}[35;13H}[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;9H}[35dstage('Deploy QA') {[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;13Hsteps {[34;17Hscript {[35;21Hsh '''[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[34;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[35;21H'''[?12l[?25h[?25l7[2;36r8[36d[3S[1;38r[33;17H}[34;13H}[35;9H}[?12l[?25h[?25l[36d(B[0;7mSave modified buffer?                                                                                                              [37;1H Y(B[m Yes[K[38d(B[0;7m N(B[m No  [38;18H(B[0;7mC(B[m Cancel[K[36;23H[?12l[?25h[?25l[37d(B[0;7m^G(B[m Get Help[37;33H(B[0;7mM-D(B[m DOS Format[37;65H(B[0;7mM-A(B[m Append[37;97H(B[0;7mM-B(B[m Backup File[38d(B[0;7m^C(B[m Cancel[17G         [33G(B[0;7mM-M(B[m Mac Format[38;65H(B[0;7mM-P(B[m Prepend[38;97H(B[0;7m^T(B[m To Files[36d(B[0;7mFile Name to Write: Jenkinsfile(B[m[36;32H[?12l[?25h[?25l[36;58H[1K (B[0;7m[ Wri;113H(B[0;7mM-6(B[m Copy Text[36d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.yml build'[23;17H}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[33;21H// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[35;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l[36d[J[38d[?12l[?25h[38;1H[?1049l[23;0;0t[?1l>[?2004l]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo cat Jenkinsfile n[K[K
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_ID = "ameliendevops"
+        DOCKER_IMAGE_CAST = "cast-service"
+        DOCKER_IMAGE_MOVIE = "movie-service"
+        DOCKER_TAG = "v.${BUILD_ID}.0"
+        KUBE_NAMESPACE_DEV = "dev"
+        KUBE_NAMESPACE_QA = "qa"
+        KUBE_NAMESPACE_STAGING = "staging"
+        KUBE_NAMESPACE_PROD = "prod"
+        KUBECONFIG = credentials("kubeconfig")
+        DOCKER_PASS = credentials("DOCKER_PASS")
+    }
+
+    stages {
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    sh 'docker-compose -f docker-compose.yml build'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    // Login to Docker Hub
+                    sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"
+
+                    // Push Docker images to Docker Hub
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"
+
+                    // Logout from Docker Hub
+                    sh "docker logout"
+                }
+            }
+        }
+
+        stage('Docker run') {
+            steps {
+                script {
+                    sh 'docker-compose -f docker-compose.yml up -d'
+                    sleep 10
+                }
+            }
+        }
+
+        stage('Test Acceptance') {
+            steps {
+                script {
+                    sh 'curl localhost'
+                }
+            }
+        }
+
+        stage('Deploy Dev') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy QA') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy Staging') {
+            steps {
+                script {
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy Prod') {
+            steps {
+                script {
+                    timeout(time: 15, unit: "MINUTES") {
+                        input message: 'Do you want to deploy in production?', ok: 'Yes'
+                    }
+                    sh '''
+                    kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
+                    '''
+                }
+            }
+        }
+    }
+}
+
+]0;ubuntu@ip-172-31-4-82: ~/exercice-jenkins/Jenkins_devops_examsubuntu@ip-172-31-4-82:~/exercice-jenkins/Jenkins_devops_exams$ sudo nano Jenkinsfile 
+[?2004h[?1049h[22;0;0t[1;38r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[36;59H(B[0;7m[ Reading... ](B[m[36;57H(B[0;7m[ Read 107 lines ](B[m[H(B[0;7m  GNU nano 4.8                                                Jenkinsfile                                                          [1;130H(B[m[37d(B[0;7m^G(B[m Get Help     (B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut Text     (B[0;7m^J(B[m Justify[81G(B[0;7m^C(B[m Cur Pos[97G(B[0;7mM-U(B[m Undo[37;113H(B[0;7mM-A(B[m Mark Text[38d(B[0;7m^X(B[m Exit[38;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste Text   (B[0;7m^T(B[m To Spell     (B[0;7m^_(B[m Go To Line   (B[0;7mM-E(B[m Redo[38;113H(B[0;7mM-6(B[m Copy Text[36d[2d[39;49m(B[mpipeline {[3;5Hagent any[5;5Henvironment {[6;9HDOCKER_ID = "ameliendevops"[7;9HDOCKER_IMAGE_CAST = "cast-service"[8;9HDOCKER_IMAGE_MOVIE = "movie-service"[9;9HDOCKER_TAG = "v.${BUILD_ID}.0"[10;9HKUBE_NAMESPACE_DEV = "dev"[11;9HKUBE_NAMESPACE_QA = "qa"[12;9HKUBE_NAMESPACE_STAGING = "staging"[13;9HKUBE_NAMESPACE_PROD = "prod"[14;9HKUBECONFIG = credentials("kubeconfig")[15;9HDOCKER_PASS = credentials("DOCKER_PASS")[16;5H}[18dstages {[19;9Hstage('Build Docker Images') {[20;13Hsteps {[21;17Hscript {[22;21Hsh 'docker-compose -f docker-compose.yml build'[23;17H}[24;13H}[25;9H}[27dstage('Docker Push') {[28;13Hsteps {[29;17Hscript {[30;21H// Login to Docker Hub[31;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[33;21H// Push Docker images to Docker Hub[34;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[35;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l[1;122H(B[0;7mModified(B[m[2;36r[36;1H
+[1;38r[35;1H[K[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H// Logout from Docker Hub[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh "docker logout"[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;17H}[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Docker run') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh 'docker-compose -f docker-compose.yml up -d'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsleep 10[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Test Acceptance') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh 'curl localhost'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Dev') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy QA') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;21Hsh '''[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Staging') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;21H'''[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[34;13H}[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9Hstage('Deploy Prod') {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13Hsteps {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17Hscript {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Htimeout(time: 15, unit: "MINUTES") {[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;25Hinput message: 'Do you want to deploy in production?', ok: 'Yes'[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hsh '''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21Hkubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;21H'''[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;17H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;13H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;9H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;5H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[35;1H}[2d[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H[2S[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[2;36r[36;1H
+[1;38r[2;1H[?12l[?25h[?25l[K[?12l[?25h[?25l[?12l[?25h[?25l[36;57H(B[0;7m[ Nothing was cut ](B[m[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36;76H[2d[?12l[?25h[?25l[36d[K[2;9H}[4dstage('Deploy Prod') {[5;13Hsteps {[6;17Hscript {[7;21Htimeout(time: 15, unit: "MINUTES") {[8;25Hinput message: 'Do you want to deploy in production?', ok: 'Yes'[9;21H}[10dsh '''[11;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[12;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}[13;21H'''[14;17H}[15;13H}[16;9H}[17;5H}[18d}[19d[?12l[?25h[?25l[16d[?12l[?25h[?25l[10d[?12l[?25h[?25l[7d[?12l[?25h[?25l[4d[?12l[?25h[?25l[2;36r[2;1HM[1;38r[2;13H}[?12l[?25h[?25l7[2;36r8[12T[1;38r[2;17H}[3;13H}[4;9H}[6dstage('Deploy Staging') {[7;13Hsteps {[8;17Hscript {[9;21Hsh '''[10;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGING}[11;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_STAGI(B[0;7m>[12;21H(B[m'''[13;17H}[2d[?12l[?25h[?25l7[2;36r8[3T[1;38r[2;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[3;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_QA}[4;21H'''[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;13Hsteps {[3;17Hscript {[4;21Hsh '''[2d[?12l[?25h[?25l7[2;35r8[6T[1;38r[2;21H'''[3;17H}[4;13H}[5;9H}[7dstage('Deploy QA') {[2d[?12l[?25h[?25l7[2;35r8[9T[1;38r[2;13H}[3;9H}[5dstage('Deploy Dev') {[6;13Hsteps {[7;17Hscript {[8;21Hsh '''[9;21Hkubectl apply -f cast-service/helm/templates/cast-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[10;21Hkubectl apply -f movie-service/helm/templates/movie-service-deployment.yaml --namespace=${KUBE_NAMESPACE_DEV}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17Hscript {[3;21Hsh 'curl localhost'[4;17H}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[3;9Hstage('Test Acceptance') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17H}[3;13H}[4;9H}[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17Hscript {[3;21Hsh 'docker-compose -f docker-compose.yml up -d'[4;21Hsleep 10[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[3;9Hstage('Docker run') {[4;13Hsteps {[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;17H}[3;13H}[4;9H}[2d[?12l[?25h[?25l7[2;36r8[3T[1;38r[3;21H// Logout from Docker Hub[4;21Hsh "docker logout"[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;21H// Push Docker images to Docker Hub[3;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"[4;21Hsh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"[2d[?12l[?25h[?25l7[2;35r8[3T[1;38r[2;21H// Login to Docker Hub[3;21Hsh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"[A[?12l[?25h[?25l7[2;35r8[6T[1;38r[2;13H}[3;9H}[5dstage('Docker Push') {[6;13Hsteps {[7;17Hscript {[2d[?12l[?25h[?25l7[2;35r8[9T[1;38r[2;9HDOCKER_PASS = credentials("DOCKER_PASS")[3;5H}[5dstages {[6;9Hstage('Build Docker Images') {[7;13Hsteps {[8;17Hscript {[9;21Hsh 'docker-compose -f docker-compose.yml build'[10;17H}[2d[?12l[?25h[?25l7[2;35r8[3T[1
