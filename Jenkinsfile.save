@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_ID = "ameliendevops"
+        DOCKER_IMAGE_CAST = "cast-service"
+        DOCKER_IMAGE_MOVIE = "movie-service"
+        KUBE_NAMESPACE_DEV = "dev"
+        KUBE_NAMESPACE_QA = "qa"
+        KUBE_NAMESPACE_STAGING = "staging"
+        KUBE_NAMESPACE_PROD = "prod"
+    }
+    
