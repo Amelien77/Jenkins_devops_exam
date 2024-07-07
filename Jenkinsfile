@@ -6,42 +6,52 @@ pipeline {
         DOCKER_IMAGE_CAST = "cast-service"
         DOCKER_IMAGE_MOVIE = "movie-service"
         DOCKER_TAG = "v.${BUILD_ID}.0"
-        KUBE_NAMESPACE_DEV = "dev" 
-        KUBE_NAMESPACE_QA = "qa"  # Quality Assurance
+        KUBE_NAMESPACE_DEV = "dev"
+        KUBE_NAMESPACE_QA = "qa"
         KUBE_NAMESPACE_STAGING = "staging"
         KUBE_NAMESPACE_PROD = "prod"
-        KUBECONFIG = credentials("kubeconfig") 
+        KUBECONFIG = credentials("kubeconfig")
+        DOCKER_PASS = credentials("DOCKER_PASS")
     }
 
     stages {
-        stage('Build Docker Images') { // Construire les images Docker pour les services de l'application.
+        stage('Build Docker Images') {
             steps {
                 script {
-                    // Construire les images en utilisant docker-compose
-                    sh '''
-                    docker-compose -f docker-compose.yml build
-                    '''
+                    sh 'docker-compose -f docker-compose.yml build'
                 }
             }
         }
 
-        stage('Docker run') { // Exécuter les conteneurs Docker pour des tests rapides et locaux.
+        stage('Docker Push') {
             steps {
                 script {
-                    // Démarrer les conteneurs nécessaires pour les tests d'acceptation
-                    sh '''
-                    docker-compose -f docker-compose.yml up -d
-                    sleep 10
-                    '''
+                    // Login to Docker Hub
+                    sh "docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}"
+
+                    // Push Docker images to Docker Hub
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}"
+
+                    // Logout from Docker Hub
+                    sh "docker logout"
                 }
             }
         }
-        stage('Test Acceptance') { #Vérifier que les conteneurs répondent correctement.
+
+        stage('Docker run') {
             steps {
                 script {
-                    sh '''
-                    curl localhost
-                    '''
+                    sh 'docker-compose -f docker-compose.yml up -d'
+                    sleep 10
+                }
+            }
+        }
+
+        stage('Test Acceptance') {
+            steps {
+                script {
+                    sh 'curl localhost'
                 }
             }
         }
@@ -79,12 +89,12 @@ pipeline {
             }
         }
 
-        stage('Deploy Prod') {  #deploy prod avec "input" pour demander une action manuelle pour une livraison continue 
+        stage('Deploy Prod') {
             steps {
-                timeout(time: 15, unit: "MINUTES") {
-                    input message: 'Do you want to deploy in production?', ok: 'Yes'
-                }
                 script {
+                    timeout(time: 15, unit: "MINUTES") {
+                        input message: 'Do you want to deploy in production?', ok: 'Yes'
+                    }
                     sh '''
                     kubectl apply -f cast-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
                     kubectl apply -f movie-service/kubernetes/deployment.yaml --namespace=${KUBE_NAMESPACE_PROD}
@@ -94,3 +104,4 @@ pipeline {
         }
     }
 }
+

@@ -1,0 +1,86 @@
+pipeline {
+agent any # Jenkins exécutera le travail sur n'importe lequel des nœuds disponibles
+    
+environment {
+        DOCKER_ID = "ameliendevops"
+        DOCKER_IMAGE_CAST = "cast-service"
+        DOCKER_IMAGE_MOVIE = "movie-service"
+	DOCKER_TAG = "v.${BUILD_ID}.0"
+        KUBE_NAMESPACE_DEV = "dev"
+        KUBE_NAMESPACE_QA = "qa"
+        KUBE_NAMESPACE_STAGING = "staging"
+        KUBE_NAMESPACE_PROD = "prod"
+    }
+    
+stages {
+        stage('Build Docker Images') { # construction des 2 images
+            steps {
+                dir('cast-service') { #pour se déplacer dans le répertoire spécifique au service
+                    script { #construction de l'image avec la tag.
+                        def dockerImage = docker.build("${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG}")
+                        dockerImage.push() #Push l'image dans le Dockerhub
+                    }
+                }
+                dir('movie-service') {
+                    script {
+                        def dockerImage = docker.build("${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG}")
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes - Development') {
+            when {
+                branch 'develop'  // Exécuter uniquement depuis la branche develop
+            }
+            steps {
+                withKubeConfig(credentialsId: 'kubeconfig', serverUrl: 'https://kubernetes.default.svc.cluster.local') {
+                    sh "kubectl apply -f docker-compose.yml -n ${KUBE_NAMESPACE_DEV}"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes - QA') {
+            when {
+                branch 'qa'  // Exécuter uniquement depuis la branche qa
+            }
+            steps {
+                withKubeConfig(credentialsId: 'kubeconfig', serverUrl: 'https://kubernetes.default.svc.cluster.local') {
+                    sh "kubectl apply -f docker-compose.yml -n ${KUBE_NAMESPACE_QA}"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes - Staging') {
+            when {
+                branch 'staging'  // Exécuter uniquement depuis la branche staging
+            }
+            steps {
+                withKubeConfig(credentialsId: 'kubeconfig', serverUrl: 'https://kubernetes.default.svc.cluster.local') {
+                    sh "kubectl apply -f docker-compose.yml -n ${KUBE_NAMESPACE_STAGING}"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes - Production') {
+            when {
+                branch 'master'  // Déploiement en production uniquement depuis la branche master
+            }
+            steps {
+                input message: 'Do you want to deploy to production?', ok: 'Deploy to Production'
+                withKubeConfig(credentialsId: 'kubeconfig', serverUrl: 'https://kubernetes.default.svc.cluster.local') {
+                    sh "kubectl apply -f docker-compose.yml -n ${KUBE_NAMESPACE_PROD}"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline réussi! Vérifiez les résultats dans Jenkins."
+        }
+        failure {
+            echo "Le pipeline a échoué. Veuillez vérifier les logs pour plus d'informations."
+        }
+    }
+}
