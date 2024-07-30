@@ -6,14 +6,14 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: movie-service
-  name: movie-service
+    io.kompose.service: nginx
+  name: nginx
 spec:
   ports:
-  - name: "8001"
-    port: 8001
-    targetPort: 8000
+  - name: "8081"
+    port: 8081
+    targetPort: 8080
   selector:
-    io.kompose.service: movie-service
+    io.kompose.service: nginx
 status:
   loadBalancer: {}
