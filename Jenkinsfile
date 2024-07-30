@@ -143,7 +143,7 @@ pipeline {
     }
     post {
         success {
-            echo 'Pipeline executed successfully!'  # Message de succès après l'exécution du pipeline
+            echo 'Pipeline executed successfully!'  // Message de succès après l'exécution du pipeline
         }
     }
 }
