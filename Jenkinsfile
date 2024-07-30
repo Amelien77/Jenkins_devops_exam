@@ -13,7 +13,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f cast-service || true  # Supprimer le conteneur existant pour éviter les conflits
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile .  # Construire l'image Docker pour le service Cast
+                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service  # Construire l'image Docker pour le service Cast
                     '''
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f movie-service || true  # Supprimer le conteneur existant pour éviter les conflits
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile .  # Construire l'image Docker pour le service Movie
+                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service  # Construire l'image Docker pour le service Movie
                     '''
                 }
             }
