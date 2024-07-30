@@ -59,8 +59,6 @@ pipeline {
                 script {
                     sh '''
                     curl localhost
-                  //  curl -f http://localhost:8001 || exit 1  # Tester la disponibilité du service Movie
-                  //  curl -f http://localhost:8002 || exit 1  # Tester la disponibilité du service Cast
                     '''
                 }
             }
