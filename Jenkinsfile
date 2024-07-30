@@ -113,11 +113,11 @@ pipeline {
         // Étape d'approbation manuelle pour la production
         stage('Manual Approval for Production') {
             when {
-                branch 'master'  // Exécuter cette étape uniquement pour la branche master
+                branch 'master'  # Exécuter cette étape uniquement pour la branche master
             }
             steps {
-                timeout(time: 15, unit: 'MINUTES') {  // Limiter le temps d'attente pour l'approbation manuelle
-                    input message: 'Do you want to deploy in production?', ok: 'Deploy'  // Demander une approbation manuelle avant le déploiement en production
+                timeout(time: 15, unit: 'MINUTES') {  # Limiter le temps d'attente pour l'approbation manuelle
+                    input message: 'Do you want to deploy in production?', ok: 'Deploy'  # Demander une approbation manuelle avant le déploiement en production
                 }
             }
         }
@@ -125,7 +125,7 @@ pipeline {
         // Étape de déploiement dans l'environnement de production
         stage('Deploy to Production') {
             when {
-                branch 'master'  // Exécuter cette étape uniquement pour la branche master
+                branch 'master'  # Exécuter cette étape uniquement pour la branche master
             }
             steps {
                 script {
@@ -143,10 +143,10 @@ pipeline {
     }
     post {
         success {
-            echo 'Pipeline executed successfully!'  // Message de succès après l'exécution du pipeline
+            echo 'Pipeline executed successfully!'
         }
         failure {
-            echo 'Pipeline failed!'  // Message d'erreur si le pipeline échoue
+            echo 'Pipeline failed!'
         }
     }
 }
