@@ -23,7 +23,7 @@ spec:
           env:
             {{- range .Values.services.movie-service.env }}
             - name: {{ .name }}
-              value: {{ .value }}
+              value: "{{ .value }}"
             {{- end }}
           volumeMounts:
             {{- range .Values.services.movie-service.volumeMounts }}
