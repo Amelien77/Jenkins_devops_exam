@@ -75,11 +75,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" values.yaml
-                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev+g" values.yaml
-                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" values.yaml
-                    helm upgrade --install cast-service fastapi --values=values.yaml --namespace dev
-                    helm upgrade --install movie-service fastapi --values=values.yaml --namespace dev
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev+g" fastapi/values.yaml
+                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" fastapi/values.yaml
+                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace dev
+                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
             }
@@ -89,11 +89,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" values.yaml
-                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_qa+g" values.yaml
-                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" values.yaml
-                    helm upgrade --install cast-service fastapi --values=values.yaml --namespace qa
-                    helm upgrade --install movie-service fastapi --values=values.yaml --namespace qa
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_qa+g" fastapi/values.yaml
+                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" fastapi/values.yaml
+                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace qa
+                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
             }
@@ -103,11 +103,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" values.yaml
-                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_staging+g" values.yaml
-                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" values.yaml
-                    helm upgrade --install cast-service fastapi --values=values.yaml --namespace staging
-                    helm upgrade --install movie-service fastapi --values=values.yaml --namespace staging
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_staging+g" fastapi/values.yaml
+                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" fastapi/values.yaml
+                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace staging
+                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
             }
@@ -131,11 +131,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" values.yaml
-                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_prod+g" values.yaml
-                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" values.yaml
-                    helm upgrade --install cast-service fastapi --values=values.yaml --namespace prod
-                    helm upgrade --install movie-service fastapi --values=values.yaml --namespace prod
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    sed -i "s+DATABASE_URI:.*+DATABASE_URI: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_prod+g" fastapi/values.yaml
+                    sed -i "s+CAST_SERVICE_HOST_URL:.*+CAST_SERVICE_HOST_URL: http://cast-service:8000/api/v1/casts/+g" fastapi/values.yaml
+                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace prod
+                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
             }
