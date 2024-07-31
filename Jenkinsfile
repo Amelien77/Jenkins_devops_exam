@@ -75,8 +75,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo mkdir -p /var/lib/jenkins/.kube
-                    sudo cp $KUBECONFIG /var/lib/jenkins/.kube/config
+                    mkdir -p ~/.kube
+                    cp $KUBECONFIG ~/.kube/config
                     cp fastapi/values.yaml values-dev.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values-dev.yml
                     helm upgrade --install cast-service fastapi --values=values-dev.yml --namespace dev
@@ -90,8 +90,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo mkdir -p /var/lib/jenkins/.kube
-                    sudo cp $KUBECONFIG /var/lib/jenkins/.kube/config
+                    mkdir -p ~/.kube
+                    cp $KUBECONFIG ~/.kube/config
                     cp fastapi/values.yaml values-qa.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values-qa.yml
                     helm upgrade --install cast-service fastapi --values=values-qa.yml --namespace qa
@@ -105,8 +105,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo mkdir -p /var/lib/jenkins/.kube
-                    sudo cp $KUBECONFIG /var/lib/jenkins/.kube/config
+                    mkdir -p ~/.kube
+                    cp $KUBECONFIG ~/.kube/config
                     cp fastapi/values.yaml values-staging.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values-staging.yml
                     helm upgrade --install cast-service fastapi --values=values-staging.yml --namespace staging
@@ -134,8 +134,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo mkdir -p /var/lib/jenkins/.kube
-                    sudo cp $KUBECONFIG /var/lib/jenkins/.kube/config
+                    mkdir -p ~/.kube
+                    cp $KUBECONFIG ~/.kube/config
                     cp fastapi/values.yaml values-prod.yml
                     sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values-prod.yml
                     helm upgrade --install cast-service fastapi --values=values-prod.yml --namespace prod
