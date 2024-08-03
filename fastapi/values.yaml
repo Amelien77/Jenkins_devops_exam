@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: ameliendevops/jenkinsapi
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: ""  # Vérifiez cette valeur, une valeur vide peut poser des problèmes
 
 imagePullSecrets: []
 
@@ -24,7 +24,7 @@ securityContext: {}
 services:
   cast-service:
     image:
-      repository: your-repo/cast-service
+      repository: ameliendevops/jenkinsapi
       tag: "latest"
     service:
       type: NodePort
@@ -38,11 +38,11 @@ services:
           claimName: cast-service-claim0
     env:
       - name: DATABASE_URI
-        value: postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev
+        value: "postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev"  # Ajout des guillemets
 
   movie-service:
     image:
-      repository: your-repo/movie-service
+      repository: ameliendevops/jenkinsapi
       tag: "latest"
     service:
       type: NodePort
@@ -56,9 +56,9 @@ services:
           claimName: movie-service-claim0
     env:
       - name: CAST_SERVICE_HOST_URL
-        value: http://cast-service:8000/api/v1/casts/
+        value: "http://cast-service:8000/api/v1/casts/"
       - name: DATABASE_URI
-        value: postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev
+        value: "postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev"  # Ajout des guillemets
 
 # Autres configurations
 ingress:
@@ -73,10 +73,12 @@ ingress:
   tls: []
 
 resources: {}
+
 livenessProbe:
   httpGet:
     path: /
     port: http
+
 readinessProbe:
   httpGet:
     path: /
