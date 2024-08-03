@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cast-service
 spec:
-  replicas: {{.Values.replicaCount}}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: cast-service
@@ -16,24 +16,23 @@ spec:
     spec:
       containers:
         - name: cast-service
-          image: "{{.Values.services.cast-service.image.repository}}
-		:{{.Values.services.cast-service.image.tag}}"
-          imagePullPolicy: {{.Values.image.pullPolicy}}
+          image: "{{ .Values.services.cast-service.image.repository }}:{{ .Values.services.cast-service.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{.Values.services.cast-service.service.port}}
+            - containerPort: {{ .Values.services.cast-service.service.port }}
           env:
-            {{- range.Values.services.cast-service.env}}
-            - name: {{.name}}
-              value: {{.value}}
-            {{- end}}
+            {{- range .Values.services.cast-service.env }}
+            - name: "{{ .name }}"
+              value: "{{ .value }}"
+            {{- end }}
           volumeMounts:
-            {{- range.Values.services.cast-service.volumeMounts}}
-            - name: {{.name}}
-              mountPath: {{.mountPath}}
-            {{- end}}
+            {{- range .Values.services.cast-service.volumeMounts }}
+            - name: "{{ .name }}"
+              mountPath: "{{ .mountPath }}"
+            {{- end }}
       volumes:
-        {{- range.Values.services.cast-service.volumes}}
-        - name: {{.name}}
+        {{- range .Values.services.cast-service.volumes }}
+        - name: "{{ .name }}"
           persistentVolumeClaim:
-            claimName: {{.persistentVolumeClaim.claimName}}
-        {{- end}}
+            claimName: "{{ .persistentVolumeClaim.claimName }}"
+        {{- end }}

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: movie-service
 spec:
-  replicas: {{.Values.replicaCount}}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: movie-service
@@ -16,22 +16,23 @@ spec:
     spec:
       containers:
         - name: movie-service
-          imagePullPolicy: {{.Values.image.pullPolicy}}
+          image: "{{ .Values.services.movie-service.image.repository }}:{{ .Values.services.movie-service.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{.Values.services.movieservice.service.port}}
+            - containerPort: {{ .Values.services.movie-service.service.port }}
           env:
-            {{- range.Values.services.movieservice.env}}
-            - name: "{{.name}}"
-            - value: "{{.value}}"
-            {{- end}}
+            {{- range .Values.services.movie-service.env }}
+            - name: "{{ .name }}"
+              value: "{{ .value }}"
+            {{- end }}
           volumeMounts:
-            {{- range.Values.services.movieservice.volumeMounts}}
-            - name: "{{.name}}"
-            - mountPath: "{{.mountPath}}"
-            {{- end}}
+            {{- range .Values.services.movie-service.volumeMounts }}
+            - name: "{{ .name }}"
+              mountPath: "{{ .mountPath }}"
+            {{- end }}
       volumes:
-        {{- range.Values.services.movieservice.volumes}}
-        - name: "{{.name}}"
+        {{- range .Values.services.movie-service.volumes }}
+        - name: "{{ .name }}"
           persistentVolumeClaim:
-            claimName: "{{.persistentVolumeClaim.claimName}}"
-        {{- end}}
+            claimName: "{{ .persistentVolumeClaim.claimName }}"
+        {{- end }}
