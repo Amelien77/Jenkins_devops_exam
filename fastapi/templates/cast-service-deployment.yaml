@@ -1,38 +1,38 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: cast-service
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      app: cast-service
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: cast-service
-    spec:
-      containers:
-        - name: cast-service
-          image: "{{ .Values.services.cast-service.image.repository }}:{{ .Values.services.cast-service.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - containerPort: {{ .Values.services.cast-service.service.port }}
-          env:
-            {{- range .Values.services.cast-service.env }}
-            - name: {{ .name }}
-              value: {{ .value }}
-            {{- end }}
-          volumeMounts:
-            {{- range .Values.services.cast-service.volumeMounts }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
-            {{- end }}
-      volumes:
-        {{- range .Values.services.cast-service.volumes }}
-        - name: {{ .name }}
-          persistentVolumeClaim:
-            claimName: {{ .persistentVolumeClaim.claimName }}
-        {{- end }}
+1: apiVersion: apps/v1
+2: kind: Deployment
+3: metadata:
+4:   name: cast-service
+5: spec:
+6:   replicas: {{ .Values.replicaCount }}
+7:   selector:
+8:     matchLabels:
+9:       app: cast-service
+10:  strategy:
+11:    type: Recreate
+12:  template:
+13:    metadata:
+14:      labels:
+15:        app: cast-service
+16:  spec:
+17:    containers:
+18:      - name: cast-service
+19:        image: "{{ .Values.services.cast-service.image.repository }}:{{ .Values.services.cast-service.image.tag }}"
+20:        imagePullPolicy: {{ .Values.image.pullPolicy }}
+21:        ports:
+22:          - containerPort: {{ .Values.services.cast-service.service.port }}
+23:        env:
+24:          {{- range .Values.services.cast-service.env }}
+25:          - name: "{{ .name }}"
+26:            value: "{{ .value }}"
+27:          {{- end }}
+28:        volumeMounts:
+29:          {{- range .Values.services.cast-service.volumeMounts }}
+30:          - name: "{{ .name }}"
+31:            mountPath: "{{ .mountPath }}"
+32:          {{- end }}
+33:    volumes:
+34:      {{- range .Values.services.cast-service.volumes }}
+35:      - name: "{{ .name }}"
+36:        persistentVolumeClaim:
+37:          claimName: "{{ .persistentVolumeClaim.claimName }}"
+38:      {{- end }}
