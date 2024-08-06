@@ -76,8 +76,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/cast-service-claim-dev.yaml --namespace dev
-                    kubectl apply -f fastapi/movie-service-claim-dev.yaml --namespace dev
+                    kubectl apply -f fastapi/templates/cast-service-claim-dev.yaml --namespace dev
+                    kubectl apply -f fastapi/templates/movie-service-claim-dev.yaml --namespace dev
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
@@ -89,8 +89,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/cast-service-claim-qa.yaml --namespace qa
-                    kubectl apply -f fastapi/movie-service-claim-qa.yaml --namespace qa
+                    kubectl apply -f fastapi/templates/cast-service-claim-qa.yaml --namespace qa
+                    kubectl apply -f fastapi/templates/movie-service-claim-qa.yaml --namespace qa
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
@@ -102,8 +102,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/cast-service-claim-staging.yaml --namespace staging
-                    kubectl apply -f fastapi/movie-service-claim-staging.yaml --namespace staging
+                    kubectl apply -f fastapi/templates/cast-service-claim-staging.yaml --namespace staging
+                    kubectl apply -f fastapi/templates/movie-service-claim-staging.yaml --namespace staging
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
@@ -129,8 +129,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/cast-service-claim-prod.yaml --namespace prod
-                    kubectl apply -f fastapi/movie-service-claim-prod.yaml --namespace prod
+                    kubectl apply -f fastapi/templates/cast-service-claim-prod.yaml --namespace prod
+                    kubectl apply -f fastapi/templates/movie-service-claim-prod.yaml --namespace prod
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
