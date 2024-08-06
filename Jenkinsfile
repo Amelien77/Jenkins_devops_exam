@@ -72,15 +72,12 @@ pipeline {
         }
 
         stage('Deploy to Development') {
-            environment {
-                NAMESPACE = 'dev'
-            }
             steps {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    sed "s/{{ .Namespace }}/dev/g" fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
-                    sed "s/{{ .Namespace }}/dev/g" fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
+                    kubectl apply -f fastapi/cast-service-claim-dev.yaml --namespace dev
+                    kubectl apply -f fastapi/movie-service-claim-dev.yaml --namespace dev
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
@@ -88,15 +85,12 @@ pipeline {
         }
 
         stage('Deploy to QA') {
-            environment {
-                NAMESPACE = 'qa'
-            }
             steps {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    sed "s/{{ .Namespace }}/qa/g" fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
-                    sed "s/{{ .Namespace }}/qa/g" fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
+                    kubectl apply -f fastapi/cast-service-claim-qa.yaml --namespace qa
+                    kubectl apply -f fastapi/movie-service-claim-qa.yaml --namespace qa
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
@@ -104,15 +98,12 @@ pipeline {
         }
 
         stage('Deploy to Staging') {
-            environment {
-                NAMESPACE = 'staging'
-            }
             steps {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    sed "s/{{ .Namespace }}/staging/g" fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
-                    sed "s/{{ .Namespace }}/staging/g" fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
+                    kubectl apply -f fastapi/cast-service-claim-staging.yaml --namespace staging
+                    kubectl apply -f fastapi/movie-service-claim-staging.yaml --namespace staging
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
@@ -131,15 +122,15 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            environment {
-                NAMESPACE = 'prod'
+            when {
+                branch 'master'
             }
             steps {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    sed "s/{{ .Namespace }}/prod/g" fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
-                    sed "s/{{ .Namespace }}/prod/g" fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml | kubectl apply -f -
+                    kubectl apply -f fastapi/cast-service-claim-prod.yaml --namespace prod
+                    kubectl apply -f fastapi/movie-service-claim-prod.yaml --namespace prod
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
@@ -149,9 +140,6 @@ pipeline {
     post {
         success {
             echo 'Pipeline executed successfully!'
-        }
-        failure {
-            echo 'Pipeline execution failed.'
         }
     }
 }
