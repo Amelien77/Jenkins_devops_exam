@@ -1,10 +1,7 @@
-# Général
 replicaCount: 1
 
 image:
-  repository: ameliendevops/jenkinsapi
   pullPolicy: IfNotPresent
-  tag: "latest"  # Assurez-vous que la valeur est correcte pour votre contexte
 
 imagePullSecrets: []
 
@@ -20,11 +17,10 @@ podLabels: {}
 podSecurityContext: {}
 securityContext: {}
 
-# Services spécifiques
 services:
   cast-service:
     image:
-      repository: ameliendevops/jenkinsapi
+      repository: ameliendevops/cast-service
       tag: "latest"
     service:
       type: NodePort
@@ -42,7 +38,7 @@ services:
 
   movie-service:
     image:
-      repository: ameliendevops/jenkinsapi
+      repository: ameliendevops/movie-service
       tag: "latest"
     service:
       type: NodePort
@@ -60,7 +56,6 @@ services:
       - name: DATABASE_URI
         value: "postgresql://movie_db_username:movie_db_password@movie_db/movie_db_dev"
 
-# Autres configurations
 ingress:
   enabled: false
   className: ""
