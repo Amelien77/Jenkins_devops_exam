@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: cast-service-claim0
-  namespace: {{ .Namespace }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: castservice
 spec:
