@@ -76,8 +76,7 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace dev
-                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace dev
+                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev  
                     '''
                 }
             }
