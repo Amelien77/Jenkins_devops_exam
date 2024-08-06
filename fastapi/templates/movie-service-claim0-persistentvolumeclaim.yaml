@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: movieserviceclaim0
-  namespace: dev
+  name: {{ .Values.services.movieservice.persistentVolumeClaim.name }}
   labels:
     app: movieservice
 spec:
@@ -10,4 +9,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: {{ .Values.services.movieservice.persistentVolumeClaim.storage }}

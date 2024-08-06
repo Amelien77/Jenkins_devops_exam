@@ -31,7 +31,10 @@ services:
     volumes:
       - name: cast-service-claim0
         persistentVolumeClaim:
-          claimName: cast-service-claim0
+          claimName: {{ .Values.services.castservice.persistentVolumeClaim.name }}
+    persistentVolumeClaim:
+      name: cast-service-claim0
+      storage: 100Mi
     env:
       - name: DATABASE_URI
         value: "postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev"
@@ -49,7 +52,10 @@ services:
     volumes:
       - name: movie-service-claim0
         persistentVolumeClaim:
-          claimName: movie-service-claim0
+          claimName: {{ .Values.services.movieservice.persistentVolumeClaim.name }}
+    persistentVolumeClaim:
+      name: movie-service-claim0
+      storage: 100Mi
     env:
       - name: CAST_SERVICE_HOST_URL
         value: "http://cast-service:8000/api/v1/casts/"

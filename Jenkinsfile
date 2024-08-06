@@ -76,7 +76,9 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev  
+                    kubectl apply -f fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml -n dev
+                    kubectl apply -f fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml -n dev
+                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
             }
@@ -87,6 +89,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml -n qa
+                    kubectl apply -f fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml -n qa
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
@@ -98,6 +102,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml -n staging
+                    kubectl apply -f fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml -n staging
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
@@ -123,6 +129,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim0-persistentvolumeclaim.yaml -n prod
+                    kubectl apply -f fastapi/templates/movie-service-claim0-persistentvolumeclaim.yaml -n prod
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
@@ -132,6 +140,9 @@ pipeline {
     post {
         success {
             echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline execution failed.'
         }
     }
 }
