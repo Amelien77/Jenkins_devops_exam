@@ -87,8 +87,7 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace qa
-                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace qa
+                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
             }
@@ -99,8 +98,7 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace staging
-                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace staging
+                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
             }
@@ -125,8 +123,7 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    helm upgrade --install cast-service fastapi --values=fastapi/values.yaml --namespace prod
-                    helm upgrade --install movie-service fastapi --values=fastapi/values.yaml --namespace prod
+                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
             }
