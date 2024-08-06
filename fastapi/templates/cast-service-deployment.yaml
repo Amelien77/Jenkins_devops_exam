@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cast-service
+  name: castservice
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: cast-service
+      app: castservice
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: cast-service
+        app: castservice
     spec:
       containers:
-        - name: cast-service
+        - name: castservice
           image: "{{ .Values.services.castservice.image.repository }}:{{ .Values.services.castservice.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
