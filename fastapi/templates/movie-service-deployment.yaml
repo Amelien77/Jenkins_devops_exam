@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: movie-service
-          image: "{{ .Values.services.movie-service.image.repository }}:{{ .Values.services.movie-service.image.tag }}"
+          image: "{{ .Values.services.movieservice.image.repository }}:{{ .Values.services.movieservice.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.movie-service.service.port }}
