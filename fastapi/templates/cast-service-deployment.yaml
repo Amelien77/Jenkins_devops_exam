@@ -16,22 +16,22 @@ spec:
     spec:
       containers:
         - name: cast-service
-          image: "{{ .Values.services.cast-service.image.repository }}:{{ .Values.services.cast-service.image.tag }}"
+          image: "{{ .Values.services.castservice.image.repository }}:{{ .Values.services.castservice.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.services.cast-service.service.port }}
+            - containerPort: {{ .Values.services.castservice.service.port }}
           env:
-            {{- range .Values.services.cast-service.env }}
+            {{- range .Values.services.castservice.env }}
             - name: "{{ .name }}"
               value: "{{ .value }}"
             {{- end }}
           volumeMounts:
-            {{- range .Values.services.cast-service.volumeMounts }}
+            {{- range .Values.services.castservice.volumeMounts }}
             - name: "{{ .name }}"
               mountPath: "{{ .mountPath }}"
             {{- end }}
       volumes:
-        {{- range .Values.services.cast-service.volumes }}
+        {{- range .Values.services.castservice.volumes }}
         - name: "{{ .name }}"
           persistentVolumeClaim:
             claimName: "{{ .persistentVolumeClaim.claimName }}"

@@ -18,7 +18,7 @@ podSecurityContext: {}
 securityContext: {}
 
 services:
-  cast-service:
+  castservice:
     image:
       repository: ameliendevops/cast-service
       tag: "latest"
@@ -36,7 +36,7 @@ services:
       - name: DATABASE_URI
         value: "postgresql://cast_db_username:cast_db_password@cast_db/cast_db_dev"
 
-  movie-service:
+  movieservice:
     image:
       repository: ameliendevops/movie-service
       tag: "latest"
