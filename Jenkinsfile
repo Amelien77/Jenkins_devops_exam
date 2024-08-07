@@ -71,10 +71,11 @@ pipeline {
             }
         }
 
-        stage('Create StorageClass') {
+        stage('Create or Update StorageClass') {
             steps {
                 script {
                     sh '''
+                    kubectl delete storageclass local-path --ignore-not-found
                     kubectl apply -f fastapi/templates/storageclass.yaml
                     '''
                 }
