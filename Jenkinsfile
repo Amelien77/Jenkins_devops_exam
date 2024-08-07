@@ -75,7 +75,10 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl apply -f fastapi/templates/storageclass.yaml
+                    kubectl apply -f fastapi/templates/storageclass-dev.yaml --namespace dev
+                    kubectl apply -f fastapi/templates/storageclass-qa.yaml --namespace qa
+                    kubectl apply -f fastapi/templates/storageclass-staging.yaml --namespace staging
+                    kubectl apply -f fastapi/templates/storageclass-prod.yaml --namespace prod
                     '''
                 }
             }
@@ -86,6 +89,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim-dev.yaml --namespace dev
+                    kubectl apply -f fastapi/templates/movie-service-claim-dev.yaml --namespace dev
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
@@ -97,6 +102,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim-qa.yaml --namespace qa
+                    kubectl apply -f fastapi/templates/movie-service-claim-qa.yaml --namespace qa
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
@@ -108,6 +115,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim-staging.yaml --namespace staging
+                    kubectl apply -f fastapi/templates/movie-service-claim-staging.yaml --namespace staging
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
@@ -133,6 +142,8 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    kubectl apply -f fastapi/templates/cast-service-claim-prod.yaml --namespace prod
+                    kubectl apply -f fastapi/templates/movie-service-claim-prod.yaml --namespace prod
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
@@ -142,6 +153,9 @@ pipeline {
     post {
         success {
             echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
         }
     }
 }

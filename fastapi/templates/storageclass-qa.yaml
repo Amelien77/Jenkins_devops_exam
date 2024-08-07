@@ -1,12 +1,12 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: local-path
-  labels:
-    app.kubernetes.io/managed-by: Helm
+  name: local-path-dev
   annotations:
     meta.helm.sh/release-name: app
-    meta.helm.sh/release-namespace: default
+    meta.helm.sh/release-namespace: qa
+  labels:
+    app.kubernetes.io/managed-by: Helm
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
