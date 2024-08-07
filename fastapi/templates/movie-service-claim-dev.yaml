@@ -5,6 +5,10 @@ metadata:
   namespace: dev
   labels:
     app: movieservice
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: app
+    meta.helm.sh/release-namespace: dev
 spec:
   accessModes:
     - ReadWriteOnce
