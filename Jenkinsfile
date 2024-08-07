@@ -12,7 +12,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f cast-service || true
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile .
+                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
                     '''
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f movie-service || true
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile .
+                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
                     '''
                 }
             }
