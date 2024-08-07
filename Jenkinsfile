@@ -12,7 +12,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f cast-service || true
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
+                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile .
                     '''
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f movie-service || true
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
+                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile .
                     '''
                 }
             }
@@ -53,7 +53,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    curl localhost
+                    curl localhost:8002
+                    curl localhost:8001
                     '''
                 }
             }
@@ -75,10 +76,10 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    kubectl delete storageclass local-path-dev --ignore-not-found --namespace dev
-                    kubectl delete storageclass local-path-qa --ignore-not-found --namespace qa
-                    kubectl delete storageclass local-path-staging --ignore-not-found --namespace staging
-                    kubectl delete storageclass local-path-prod --ignore-not-found --namespace prod
+                    kubectl delete storageclass local-path-dev --ignore-not-found
+                    kubectl delete storageclass local-path-qa --ignore-not-found
+                    kubectl delete storageclass local-path-staging --ignore-not-found
+                    kubectl delete storageclass local-path-prod --ignore-not-found
                     '''
                 }
             }
