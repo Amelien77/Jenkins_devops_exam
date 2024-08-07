@@ -12,7 +12,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f cast-service || true
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
+                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile .
                     '''
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f movie-service || true
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
+                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile .
                     '''
                 }
             }
@@ -53,7 +53,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    curl localhost
+                    curl localhost:8002
+                    curl localhost:8001
                     '''
                 }
             }
@@ -71,39 +72,19 @@ pipeline {
             }
         }
 
-        stage('Clean Existing StorageClass') {
-            steps {
-                script {
-                    sh '''
-                    kubectl delete storageclass local-path-dev --ignore-not-found
-                    kubectl delete storageclass local-path-qa --ignore-not-found
-                    kubectl delete storageclass local-path-staging --ignore-not-found
-                    kubectl delete storageclass local-path-prod --ignore-not-found
-                    '''
-                }
-            }
-        }
-
-        stage('Create or Update StorageClass') {
-            steps {
-                script {
-                    sh '''
-                    kubectl apply -f fastapi/templates/storageclass-dev.yaml --namespace dev
-                    kubectl apply -f fastapi/templates/storageclass-qa.yaml --namespace qa
-                    kubectl apply -f fastapi/templates/storageclass-staging.yaml --namespace staging
-                    kubectl apply -f fastapi/templates/storageclass-prod.yaml --namespace prod
-                    '''
-                }
-            }
-        }
-
         stage('Deploy to Development') {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    # Create the StorageClass for dev environment
+                    kubectl apply -f fastapi/templates/storageclass-dev.yaml --namespace dev
+
+                    # Deploy PVCs for dev environment
                     kubectl apply -f fastapi/templates/cast-service-claim-dev.yaml --namespace dev
                     kubectl apply -f fastapi/templates/movie-service-claim-dev.yaml --namespace dev
+
+                    # Deploy the application to dev environment
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace dev
                     '''
                 }
@@ -114,9 +95,15 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    # Create the StorageClass for QA environment
+                    kubectl apply -f fastapi/templates/storageclass-qa.yaml --namespace qa
+
+                    # Deploy PVCs for QA environment
                     kubectl apply -f fastapi/templates/cast-service-claim-qa.yaml --namespace qa
                     kubectl apply -f fastapi/templates/movie-service-claim-qa.yaml --namespace qa
+
+                    # Deploy the application to QA environment
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace qa
                     '''
                 }
@@ -127,9 +114,15 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    # Create the StorageClass for staging environment
+                    kubectl apply -f fastapi/templates/storageclass-staging.yaml --namespace staging
+
+                    # Deploy PVCs for staging environment
                     kubectl apply -f fastapi/templates/cast-service-claim-staging.yaml --namespace staging
                     kubectl apply -f fastapi/templates/movie-service-claim-staging.yaml --namespace staging
+
+                    # Deploy the application to staging environment
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
                     '''
                 }
@@ -154,9 +147,15 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
+                    # Create the StorageClass for production environment
+                    kubectl apply -f fastapi/templates/storageclass-prod.yaml --namespace prod
+
+                    # Deploy PVCs for production environment
                     kubectl apply -f fastapi/templates/cast-service-claim-prod.yaml --namespace prod
                     kubectl apply -f fastapi/templates/movie-service-claim-prod.yaml --namespace prod
+
+                    # Deploy the application to production environment
+                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
                     helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
                     '''
                 }
