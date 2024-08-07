@@ -71,6 +71,19 @@ pipeline {
             }
         }
 
+        stage('Clean Existing StorageClass') {
+            steps {
+                script {
+                    sh '''
+                    kubectl delete storageclass local-path-dev --ignore-not-found --namespace dev
+                    kubectl delete storageclass local-path-qa --ignore-not-found --namespace qa
+                    kubectl delete storageclass local-path-staging --ignore-not-found --namespace staging
+                    kubectl delete storageclass local-path-prod --ignore-not-found --namespace prod
+                    '''
+                }
+            }
+        }
+
         stage('Create or Update StorageClass') {
             steps {
                 script {
@@ -115,47 +128,4 @@ pipeline {
                 script {
                     sh '''
                     sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/templates/cast-service-claim-staging.yaml --namespace staging
-                    kubectl apply -f fastapi/templates/movie-service-claim-staging.yaml --namespace staging
-                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace staging
-                    '''
-                }
-            }
-        }
-
-        stage('Manual Approval for Production') {
-            when {
-                branch 'master'
-            }
-            steps {
-                timeout(time: 15, unit: 'MINUTES') {
-                    input message: 'Do you want to deploy in production?', ok: 'Deploy'
-                }
-            }
-        }
-
-        stage('Deploy to Production') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    sh '''
-                    sed -i "s+tag:.*+tag: ${DOCKER_TAG}+g" fastapi/values.yaml
-                    kubectl apply -f fastapi/templates/cast-service-claim-prod.yaml --namespace prod
-                    kubectl apply -f fastapi/templates/movie-service-claim-prod.yaml --namespace prod
-                    helm upgrade --install app fastapi --values=fastapi/values.yaml --namespace prod
-                    '''
-                }
-            }
-        }
-    }
-    post {
-        success {
-            echo 'Pipeline executed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Please check the logs.'
-        }
-    }
-}
+     
