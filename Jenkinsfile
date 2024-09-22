@@ -4,6 +4,7 @@ pipeline {
         DOCKER_TAG = "v.${BUILD_ID}.0"
         DOCKER_PASS = credentials("DOCKER_HUB_PASS")
         KUBECONFIG = credentials("config")
+        PATH = "${PATH}:~/.local/bin"
     }
     agent any
     stages {
