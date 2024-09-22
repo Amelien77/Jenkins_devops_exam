@@ -13,6 +13,7 @@ pipeline {
                 script {
                     sh '''
                     pip install -r cast-service/requirements.txt
+                    pip install -r movie-service/requirements.txt
                     '''
                 }
             }
@@ -22,7 +23,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    pip3 install flake8
                     flake8 cast-service/app --exit-zero --max-line-length=88
                     '''
                 }
@@ -33,7 +33,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    pip3 install flake8
                     flake8 movie-service/app --exit-zero --max-line-length=88
                     '''
                 }
