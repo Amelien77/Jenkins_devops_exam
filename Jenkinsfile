@@ -7,11 +7,23 @@ pipeline {
     }
     agent any
     stages {
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh '''
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r cast-service/requirements.txt
+                    '''
+                }
+            }
+        }
+
         stage('Lint - Cast Service') {
             steps {
                 script {
                     sh '''
-                    pip install -r cast-service/requirements.txt
+                    /usr/bin/pip3 install -r cast-service/requirements.txt
                     flake8 cast-service/app --exit-zero --max-line-length=88
                     '''
                 }
@@ -22,7 +34,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    pip install -r movie-service/requirements.txt
+                    /usr/bin/pip3 install -r cast-service/requirements.txt
                     flake8 movie-service/app --exit-zero --max-line-length=88
                     '''
                 }
