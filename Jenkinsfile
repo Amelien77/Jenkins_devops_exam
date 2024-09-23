@@ -67,7 +67,7 @@ pipeline {
                     sh '''
                     docker run -d -p 8002:8000 --name cast-service $DOCKER_ID/cast-service:$DOCKER_TAG
                     sleep 5
-                    curl -f http://localhost:8002/api/casts || exit 1
+                    curl -f http://localhost:8002/api/v1/casts || exit 1
                     '''
                 }
             }
@@ -79,7 +79,7 @@ pipeline {
                     sh '''
                     docker run -d -p 8001:8000 --name movie-service $DOCKER_ID/movie-service:$DOCKER_TAG
                     sleep 5
-                    curl -f http://localhost:8001/api/movies || exit 1
+                    curl -f http://localhost:8001/api/v1/movies || exit 1
                     '''
                 }
             }
@@ -100,19 +100,38 @@ pipeline {
         stage('Deploy to Development') {
             steps {
                 script {
-                    sh '''
-                    kubectl apply -f fastapi/templates/storageclass-dev.yaml --namespace dev
-                    kubectl apply -f fastapi/templates/cast-service-claim-dev.yaml --namespace dev
-                    kubectl apply -f fastapi/templates/movie-service-claim-dev.yaml --namespace dev
-                    helm upgrade --install app fastapi --namespace dev --set image.tag=${DOCKER_TAG}
-                    '''
+                    helm upgrade --install app helm --namespace dev --set image.tag=${DOCKER_TAG} -f helm/values-dev.yaml
                 }
             }
         }
 
-        // Similar blocks for QA, Staging and Production
-        // ...
+        // Similar blocks for QA, Staging, and Production
+        // Example for QA
+        stage('Deploy to QA') {
+            steps {
+                script {
+                    helm upgrade --install app helm --namespace qa --set image.tag=${DOCKER_TAG} -f helm/values-qa.yaml
+                }
+            }
+        }
 
+        // Example for Staging
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    helm upgrade --install app helm --namespace staging --set image.tag=${DOCKER_TAG} -f helm/values-staging.yaml
+                }
+            }
+        }
+
+        // Example for Production
+        stage('Deploy to Production') {
+            steps {
+                script {
+                    helm upgrade --install app helm --namespace prod --set image.tag=${DOCKER_TAG} -f helm/values-prod.yaml
+                }
+            }
+        }
     }
     post {
         success {

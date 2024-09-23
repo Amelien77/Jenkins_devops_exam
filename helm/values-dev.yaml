@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: ameliendevops
+  pullPolicy: IfNotPresent
+  tag: dev
+
+service:
+  enabled: true
+  name: service-dev
+  port: 80
+  targetPort: 8000
+  type: ClusterIP
+
+ingress:
+  enabled: false
+
+hpa:
+  enabled: false
+
+resources: {}

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "your-chart-name.fullname" . }}
+  labels:
+    app: {{ include "your-chart-name.name" . }}
+    chart: {{ include "your-chart-name.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP  # Ou NodePort / LoadBalancer selon tes besoins
+  ports:
+    - port: 80
+      targetPort: 8000  # Port du conteneur
+      protocol: TCP
+  selector:
+    app: {{ include "your-chart-name.name" . }}  # Correspond à l'étiquette du déploiement

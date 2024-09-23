@@ -1,0 +1,25 @@
+replicaCount: 3
+
+image:
+  repository: ameliendevops
+  pullPolicy: IfNotPresent
+  tag: prod
+
+service:
+  enabled: true
+  name: service-prod
+  port: 80
+  targetPort: 8000
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - host: prod.chart-example.local
+      paths:
+        - /
+
+hpa:
+  enabled: true
+
+resources: {}

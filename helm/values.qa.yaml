@@ -1,0 +1,26 @@
+replicaCount: 2
+
+image:
+  repository: your-image-repo
+  pullPolicy: IfNotPresent
+  tag: qa
+
+service:
+  enabled: true
+  name: your-service-name-qa
+  port: 80
+  targetPort: 8000
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - host: qa.chart-example.local
+      paths:
+        - /
+
+hpa:
+  enabled: true
+
+persistentVolume:
+  storage: "10Gi"  # Capacité pour QA

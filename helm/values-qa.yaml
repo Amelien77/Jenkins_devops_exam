@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: ameliendevops
+  pullPolicy: IfNotPresent
+  tag: qa
+
+service:
+  enabled: true
+  name: service-qa
+  port: 80
+  targetPort: 8000
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - host: qa.chart-example.local
+      paths:
+        - /
+
+hpa:
+  enabled: true
+
+resources: {}

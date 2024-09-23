@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: ameliendevops
+  pullPolicy: IfNotPresent
+  tag: staging
+
+service:
+  enabled: true
+  name: service-staging
+  port: 80
+  targetPort: 8000
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hosts:
+    - host: staging.chart-example.local
+      paths:
+        - /
+
+hpa:
+  enabled: true
+
+resources: {}
