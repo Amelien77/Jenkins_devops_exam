@@ -100,7 +100,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install app helm --namespace dev --set image.tag=$DOCKER_TAG -f helm/values-dev.yaml
+                    helm upgrade --install app helm --namespace dev --set image.tag=${DOCKER_TAG} -f helm/values-dev.yaml
                     '''
                 }
             }
@@ -110,7 +110,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install app helm --namespace qa --set image.tag=$DOCKER_TAG -f helm/values-qa.yaml
+                    helm upgrade --install app helm --namespace qa --set image.tag=${DOCKER_TAG} -f helm/values-qa.yaml
                     '''
                 }
             }
@@ -120,7 +120,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install app helm --namespace staging --set image.tag=$DOCKER_TAG -f helm/values-staging.yaml
+                    helm upgrade --install app helm --namespace staging --set image.tag=${DOCKER_TAG} -f helm/values-staging.yaml
                     '''
                 }
             }
@@ -130,7 +130,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    helm upgrade --install app helm --namespace prod --set image.tag=$DOCKER_TAG -f helm/values-prod.yaml
+                    helm upgrade --install app helm --namespace prod --set image.tag=${DOCKER_TAG} -f helm/values-prod.yaml
                     '''
                 }
             }
