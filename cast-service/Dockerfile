@@ -3,7 +3,7 @@ FROM python:3.8-slim
 WORKDIR /app
 
 # Copier les fichiers requirements.txt dans le conteneur
-COPY requirements.txt .
+COPY requirements.txt /app/
 
 # Installer les dépendances
 RUN apt-get update \
@@ -13,9 +13,9 @@ RUN apt-get update \
     && rm -rf /root/.cache/pip
 
 # Copier le reste du code source dans le conteneur
-COPY ./app ./app
+COPY ./app /app/app
 
-# Définir le répertoire de travail pour que `python` trouve le module correctement
+# Changer le répertoire de travail pour que `python` trouve le module correctement
 WORKDIR /app/app
 
 # Définir la commande par défaut

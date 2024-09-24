@@ -13,7 +13,7 @@ RUN apt-get update \
     && rm -rf /root/.cache/pip
 
 # Copier le reste du code source dans le conteneur
-COPY . /app/
+COPY ./app /app/app
 
 # Changer le répertoire de travail pour que `python` trouve le module correctement
 WORKDIR /app/app
