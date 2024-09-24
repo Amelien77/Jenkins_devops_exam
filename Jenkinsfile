@@ -38,33 +38,20 @@ pipeline {
             }
         }
 
-        stage('Docker Build - Cast Service') {
+        stage('Docker Compose Build and Run') {
             steps {
                 script {
                     sh '''
-                    docker rm -f cast-service || true
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
+                    docker-compose -f docker-compose.yml up --build -d
                     '''
                 }
             }
         }
 
-        stage('Docker Build - Movie Service') {
+        stage('Run Tests - Cast Service') {
             steps {
                 script {
                     sh '''
-                    docker rm -f movie-service || true
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
-                    '''
-                }
-            }
-        }
-
-        stage('Docker Run and Test - Cast Service') {
-            steps {
-                script {
-                    sh '''
-                    docker run -d -p 8002:8000 --name cast-service $DOCKER_ID/cast-service:$DOCKER_TAG
                     sleep 5
                     curl -f http://localhost:8002/api/v1/casts || exit 1
                     '''
@@ -72,11 +59,10 @@ pipeline {
             }
         }
 
-        stage('Docker Run and Test - Movie Service') {
+        stage('Run Tests - Movie Service') {
             steps {
                 script {
                     sh '''
-                    docker run -d -p 8001:8000 --name movie-service $DOCKER_ID/movie-service:$DOCKER_TAG
                     sleep 5
                     curl -f http://localhost:8001/api/v1/movies || exit 1
                     '''
@@ -89,8 +75,7 @@ pipeline {
                 script {
                     sh '''
                     docker login -u $DOCKER_ID -p $DOCKER_PASS
-                    docker push $DOCKER_ID/cast-service:$DOCKER_TAG
-                    docker push $DOCKER_ID/movie-service:$DOCKER_TAG
+                    docker-compose -f docker-compose.yml push
                     '''
                 }
             }
@@ -131,6 +116,16 @@ pipeline {
                 script {
                     sh '''
                     helm upgrade --install app helm --namespace prod --set image.tag=$DOCKER_TAG -f helm/values-prod.yaml
+                    '''
+                }
+            }
+        }
+
+        stage('Clean Up') {
+            steps {
+                script {
+                    sh '''
+                    docker-compose -f docker-compose.yml down
                     '''
                 }
             }
