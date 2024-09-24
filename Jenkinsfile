@@ -43,7 +43,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f cast-service || true
-                    docker build -t ${DOCKER_ID}/cast-service:${DOCKER_TAG} -f cast-service/Dockerfile cast-service
+                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
                 script {
                     sh '''
                     docker rm -f movie-service || true
-                    docker build -t ${DOCKER_ID}/movie-service:${DOCKER_TAG} -f movie-service/Dockerfile movie-service
+                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
                     '''
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker run -d -p 8002:8000 --name cast-service ${DOCKER_ID}/cast-service:${DOCKER_TAG}
+                    docker run -d -p 8002:8000 --name cast-service $DOCKER_ID/cast-service:$DOCKER_TAG
                     sleep 5
                     curl -f http://localhost:8002/api/v1/casts || exit 1
                     '''
@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker run -d -p 8001:8000 --name movie-service ${DOCKER_ID}/movie-service:${DOCKER_TAG}
+                    docker run -d -p 8001:8000 --name movie-service $DOCKER_ID/movie-service:$DOCKER_TAG
                     sleep 5
                     curl -f http://localhost:8001/api/v1/movies || exit 1
                     '''
@@ -88,9 +88,9 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker login -u ${DOCKER_ID} -p ${DOCKER_PASS}
-                    docker push ${DOCKER_ID}/cast-service:${DOCKER_TAG}
-                    docker push ${DOCKER_ID}/movie-service:${DOCKER_TAG}
+                    docker login -u $DOCKER_ID -p $DOCKER_PASS
+                    docker push $DOCKER_ID/cast-service:$DOCKER_TAG
+                    docker push $DOCKER_ID/movie-service:$DOCKER_TAG
                     '''
                 }
             }
@@ -99,9 +99,9 @@ pipeline {
         stage('Deploy to Development') {
             steps {
                 script {
-                    sh """
-                    helm upgrade --install app helm --namespace dev --set image.tag=${DOCKER_TAG} -f helm/values-dev.yaml
-                    """
+                    sh '''
+                    helm upgrade --install app helm --namespace dev --set image.tag=$DOCKER_TAG -f helm/values-dev.yaml
+                    '''
                 }
             }
         }
@@ -109,9 +109,9 @@ pipeline {
         stage('Deploy to QA') {
             steps {
                 script {
-                    sh """
-                    helm upgrade --install app helm --namespace qa --set image.tag=${DOCKER_TAG} -f helm/values-qa.yaml
-                    """
+                    sh '''
+                    helm upgrade --install app helm --namespace qa --set image.tag=$DOCKER_TAG -f helm/values-qa.yaml
+                    '''
                 }
             }
         }
@@ -119,9 +119,9 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 script {
-                    sh """
-                    helm upgrade --install app helm --namespace staging --set image.tag=${DOCKER_TAG} -f helm/values-staging.yaml
-                    """
+                    sh '''
+                    helm upgrade --install app helm --namespace staging --set image.tag=$DOCKER_TAG -f helm/values-staging.yaml
+                    '''
                 }
             }
         }
@@ -129,9 +129,9 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    sh """
-                    helm upgrade --install app helm --namespace prod --set image.tag=${DOCKER_TAG} -f helm/values-prod.yaml
-                    """
+                    sh '''
+                    helm upgrade --install app helm --namespace prod --set image.tag=$DOCKER_TAG -f helm/values-prod.yaml
+                    '''
                 }
             }
         }
