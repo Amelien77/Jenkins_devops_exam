@@ -18,6 +18,26 @@ pipeline {
             }
         }
 
+        stage('Lint - Cast Service') {
+            steps {
+                script {
+                    sh '''
+                    flake8 cast-service/app --exit-zero --max-line-length=88
+                    '''
+                }
+            }
+        }
+
+        stage('Lint - Movie Service') {
+            steps {
+                script {
+                    sh '''
+                    flake8 movie-service/app --exit-zero --max-line-length=88
+                    '''
+                }
+            }
+        }
+
         stage('Docker Build - Cast Service') {
             steps {
                 script {
