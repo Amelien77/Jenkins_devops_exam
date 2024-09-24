@@ -4,7 +4,6 @@ pipeline {
         DOCKER_TAG = "v.${BUILD_ID}.0"
         DOCKER_PASS = credentials("DOCKER_HUB_PASS")
         KUBECONFIG = credentials("config")
-        PATH = "${PATH}:~/.local/bin"
     }
     agent any
     stages {
@@ -22,9 +21,7 @@ pipeline {
         stage('Lint - Cast Service') {
             steps {
                 script {
-                    sh '''
-                    flake8 cast-service/app --exit-zero --max-line-length=88
-                    '''
+                    sh 'flake8 cast-service/app --exit-zero --max-line-length=88'
                 }
             }
         }
@@ -32,54 +29,32 @@ pipeline {
         stage('Lint - Movie Service') {
             steps {
                 script {
+                    sh 'flake8 movie-service/app --exit-zero --max-line-length=88'
+                }
+            }
+        }
+
+        stage('Docker Compose Build') {
+            steps {
+                script {
+                    // Utilisation de docker-compose pour construire les images
                     sh '''
-                    flake8 movie-service/app --exit-zero --max-line-length=88
+                    docker-compose down || true
+                    docker-compose build
                     '''
                 }
             }
         }
 
-        stage('Docker Build - Cast Service') {
+        stage('Docker Compose Up and Test') {
             steps {
                 script {
+                    // Lancer les conteneurs et tester les services
                     sh '''
-                    docker rm -f cast-service || true
-                    docker build -t $DOCKER_ID/cast-service:$DOCKER_TAG -f cast-service/Dockerfile cast-service
-                    '''
-                }
-            }
-        }
-
-        stage('Docker Build - Movie Service') {
-            steps {
-                script {
-                    sh '''
-                    docker rm -f movie-service || true
-                    docker build -t $DOCKER_ID/movie-service:$DOCKER_TAG -f movie-service/Dockerfile movie-service
-                    '''
-                }
-            }
-        }
-
-        stage('Docker Run and Test - Cast Service') {
-            steps {
-                script {
-                    sh '''
-                    docker run -d -p 8002:8000 --name cast-service $DOCKER_ID/cast-service:$DOCKER_TAG
-                    sleep 5
-                    curl -f http://localhost:8002/api/v1/casts || exit 1
-                    '''
-                }
-            }
-        }
-
-        stage('Docker Run and Test - Movie Service') {
-            steps {
-                script {
-                    sh '''
-                    docker run -d -p 8001:8000 --name movie-service $DOCKER_ID/movie-service:$DOCKER_TAG
-                    sleep 5
+                    docker-compose up -d
+                    sleep 10  # Attendre que les services démarrent
                     curl -f http://localhost:8001/api/v1/movies || exit 1
+                    curl -f http://localhost:8002/api/v1/casts || exit 1
                     '''
                 }
             }
@@ -88,6 +63,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 script {
+                    // Pousser les images vers Docker Hub
                     sh '''
                     docker login -u $DOCKER_ID -p $DOCKER_PASS
                     docker push $DOCKER_ID/cast-service:$DOCKER_TAG
@@ -100,35 +76,43 @@ pipeline {
         stage('Deploy to Development') {
             steps {
                 script {
-                    helm upgrade --install app helm --namespace dev --set image.tag=${DOCKER_TAG} -f helm/values-dev.yaml
+                    // Déployer sur Kubernetes en environnement dev via Helm
+                    sh '''
+                    helm upgrade --install app helm --namespace dev --set image.tag=$DOCKER_TAG -f helm/values-dev.yaml
+                    '''
                 }
             }
         }
 
-        // Similar blocks for QA, Staging, and Production
-        // Example for QA
         stage('Deploy to QA') {
             steps {
                 script {
-                    helm upgrade --install app helm --namespace qa --set image.tag=${DOCKER_TAG} -f helm/values-qa.yaml
+                    // Déployer sur Kubernetes en environnement QA via Helm
+                    sh '''
+                    helm upgrade --install app helm --namespace qa --set image.tag=$DOCKER_TAG -f helm/values-qa.yaml
+                    '''
                 }
             }
         }
 
-        // Example for Staging
         stage('Deploy to Staging') {
             steps {
                 script {
-                    helm upgrade --install app helm --namespace staging --set image.tag=${DOCKER_TAG} -f helm/values-staging.yaml
+                    // Déployer sur Kubernetes en environnement staging via Helm
+                    sh '''
+                    helm upgrade --install app helm --namespace staging --set image.tag=$DOCKER_TAG -f helm/values-staging.yaml
+                    '''
                 }
             }
         }
 
-        // Example for Production
         stage('Deploy to Production') {
             steps {
                 script {
-                    helm upgrade --install app helm --namespace prod --set image.tag=${DOCKER_TAG} -f helm/values-prod.yaml
+                    // Déployer sur Kubernetes en environnement prod via Helm
+                    sh '''
+                    helm upgrade --install app helm --namespace prod --set image.tag=$DOCKER_TAG -f helm/values-prod.yaml
+                    '''
                 }
             }
         }
