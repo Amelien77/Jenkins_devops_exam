@@ -53,7 +53,7 @@ pipeline {
                 script {
                     sh '''
                     sleep 5
-                    curl -f http://localhost:8002/api/v1/casts || exit 1
+                    curl -f http://cast_service:8002/api/v1/casts || exit 1
                     '''
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
                 script {
                     sh '''
                     sleep 5
-                    curl -f http://localhost:8001/api/v1/movies || exit 1
+                    curl -f http://movie_service:8001/api/v1/movies || exit 1
                     '''
                 }
             }

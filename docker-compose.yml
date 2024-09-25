@@ -5,10 +5,10 @@ services:
     build: ./movie-service
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
     environment:
-      - DATABASE_URI=sqlite:////app/movie_service.db  # pour movie_service
+      - DATABASE_URI=sqlite:////app/movie_service.db
     volumes:
       - ./movie-service/:/app/
-      - ./movie_service.db:/app/movie_service.db  # Persist le fichier de base de données
+      - ./movie_service.db:/app/movie_service.db 
     ports:
       - 8001:8000
 
@@ -16,10 +16,10 @@ services:
     build: ./cast-service
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
     environment:
-      - DATABASE_URI=sqlite:////app/cast_service.db  # pour cast_service
+      - DATABASE_URI=sqlite:////app/cast_service.db 
     volumes:
       - ./cast-service/:/app/
-      - ./cast_service.db:/app/cast_service.db  # Persist le fichier de base de données
+      - ./cast_service.db:/app/cast_service.db 
     ports:
       - 8002:8000
 
