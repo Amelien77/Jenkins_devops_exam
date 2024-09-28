@@ -1,23 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "your-chart-name.fullname" . }}
+  name: {{ include "fastapi.fullname" . }}
   labels:
-    app: {{ include "your-chart-name.name" . }}
-    chart: {{ include "your-chart-name.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "fastapi.labels" . | nindent 4 }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: {{ .Values.ingress.host }}
+    {{- range .Values.ingress.hosts }}  # Itère sur chaque hôte défini
+    - host: {{ .host }}  # Utilise l'hôte actuel
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          {{- range .paths }}  # Itère sur les chemins pour cet hôte
+          - path: {{ . }}  # Utilise le chemin courant
+            pathType: {{ $.Values.ingress.pathType }}  # Utilise le pathType général
             backend:
               service:
-                name: {{ include "your-chart-name.fullname" . }}
+                name: {{ include "fastapi.fullname" $ }}  # Garde le contexte
                 port:
-                  number: 80
+                  number: {{ $.Values.service.port }} 
+          {{- end }}
+    {{- end }}
