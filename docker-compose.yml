@@ -8,20 +8,24 @@ services:
       - DATABASE_URI=sqlite:////app/movie_service.db
     volumes:
       - ./movie-service/:/app/
-      - ./movie_service.db:/app/movie_service.db 
+      - ./movie_service.db:/app/movie_service.db
     ports:
       - 8001:8000
+    networks:
+      - app_network  # Ajout de réseau
 
   cast_service:
     build: ./cast-service
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
     environment:
-      - DATABASE_URI=sqlite:////app/cast_service.db 
+      - DATABASE_URI=sqlite:////app/cast_service.db
     volumes:
       - ./cast-service/:/app/
-      - ./cast_service.db:/app/cast_service.db 
+      - ./cast_service.db:/app/cast_service.db
     ports:
       - 8002:8000
+    networks:
+      - app_network  # Ajout de réseau
 
   nginx:
     image: nginx:latest
@@ -32,5 +36,8 @@ services:
     depends_on:
       - cast_service
       - movie_service
+    networks:
+      - app_network  # Ajout de réseau
 
-volumes: {}
+networks: 
+  app_network:  # Déclaration du réseau
