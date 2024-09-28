@@ -48,28 +48,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests - Cast Service') {
-            steps {
-                script {
-                    sh '''
-                    sleep 5
-                    curl -f http://cast_service:8002/api/v1/casts || exit 1
-                    '''
-                }
-            }
-        }
-
-        stage('Run Tests - Movie Service') {
-            steps {
-                script {
-                    sh '''
-                    sleep 5
-                    curl -f http://movie_service:8001/api/v1/movies || exit 1
-                    '''
-                }
-            }
-        }
-
         stage('Docker Push') {
             steps {
                 script {
@@ -91,11 +69,35 @@ pipeline {
             }
         }
 
+        stage('Run Tests - Development') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    curl -f http://cast_service:8002/api/v1/casts || exit 1
+                    curl -f http://movie_service:8001/api/v1/movies || exit 1
+                    '''
+                }
+            }
+        }
+
         stage('Deploy to QA') {
             steps {
                 script {
                     sh '''
                     helm upgrade --install app helm --namespace qa --set image.tag=$DOCKER_TAG -f helm/values-qa.yaml
+                    '''
+                }
+            }
+        }
+
+        stage('Run Tests - QA') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    curl -f http://cast_service:8002/api/v1/casts || exit 1
+                    curl -f http://movie_service:8001/api/v1/movies || exit 1
                     '''
                 }
             }
@@ -111,11 +113,35 @@ pipeline {
             }
         }
 
+        stage('Run Tests - Staging') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    curl -f http://cast_service:8002/api/v1/casts || exit 1
+                    curl -f http://movie_service:8001/api/v1/movies || exit 1
+                    '''
+                }
+            }
+        }
+
         stage('Deploy to Production') {
             steps {
                 script {
                     sh '''
                     helm upgrade --install app helm --namespace prod --set image.tag=$DOCKER_TAG -f helm/values-prod.yaml
+                    '''
+                }
+            }
+        }
+
+        stage('Run Tests - Production') {
+            steps {
+                script {
+                    sh '''
+                    sleep 5
+                    curl -f http://cast_service:8002/api/v1/casts || exit 1
+                    curl -f http://movie_service:8001/api/v1/movies || exit 1
                     '''
                 }
             }
